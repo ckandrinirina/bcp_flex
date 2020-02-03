@@ -1,0 +1,45 @@
+{# bulma Sliding pagination control implementation #}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
+{% endblock %}
+{% if pageCount > 1 %}
+    <nav>
+        <ul class="pagination">
+            {% if previous is defined %}
+                <a class="btn" type="submit" href="{{ path(route, query|merge({(pageParameterName): previous})) }}">&laquo;</a>
+            {% else %}
+                <a class="btn" disabled>&laquo;</a>
+            {% endif %}
+                <li class="active">
+                    <a href="{{ path(route, query|merge({(pageParameterName): first})) }}" class="btn" type="submit">1</a>{#class="button" #}
+                </li>
+                {% if pagesInRange[0] - first >= 2 %}
+                    <li>
+                        <span>…</span>
+                    </li>
+                {% endif %}
+                {% for page in pagesInRange %}
+                    {% if first != page and page != last %}
+                        <li class="active">
+                            <a 
+                               href="{{ path(route, query|merge({(pageParameterName): page})) }}" class="btn" type="submit">{{ page }}</a>
+                        </li>
+                    {% endif %}
+                    
+                {% endfor %}
+                {% if  last - pagesInRange[pagesInRange|length - 1] >= 2 %}
+                    <li>
+                        <span>…</span>
+                    </li>
+                {% endif %}
+                <li>
+                    <a href="{{ path(route, query|merge({(pageParameterName): last})) }}" class="btn" type="submit">{{ last }}</a>
+                </li>
+            {% if next is defined %}
+                <a class="btn" type="submit" href="{{ path(route, query|merge({(pageParameterName): next})) }}">&raquo;</a>
+            {% else %}
+                <a class="btn" type="submit" disabled>&raquo;</a>
+            {% endif %}
+        </ul>
+    </nav>
+{% endif %}

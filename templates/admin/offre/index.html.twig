@@ -1,0 +1,72 @@
+{% extends 'admin/base.html.twig' %}
+{% block stylesheets %}
+    <head>
+        <link rel="stylesheet" href="{{ asset('assets/admin/css/app.css') }}">
+        <script type="text/javascript" src="{{ asset('assets/admin/js/app.js') }}"></script>
+        <style>
+            .wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+            .wrapper code { background: #F5F5F5; padding: 2px 6px; }
+        </style>
+    </head>
+{% endblock %}
+
+{% block body %}
+    <nav class="navbar">
+        <a class="navbar-brand"></a>
+        <h2>liste des offres </h2>
+        <form class="form-inline">
+            {#<a href="{{ path('admin_offre_new') }}" class="btn btn-primary navbar-brand">nouveau</a>#}
+            <a href="{{ path('etablissement_index') }}" class="btn btn-primary navbar-brand">liste etablissement</a>
+        </form>
+    </nav>
+    </br>
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th style="margin-left:50px">Photo</th>
+                <th style="margin-left:50px">Id</th>
+                <th style="margin-left:50px">Nom</th>
+                <th style="margin-left:50px">Prix</th>
+                <th style="margin-left:50px">Descriptions</th>
+                <th style="margin-left:50px">Idetablissement</th>
+                <th style="margin-left:50px">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for offre in offres %}
+            <tr>
+                <td onclick="location.href = '{{ path('admin_offre_show', { 'id': offre.id }) }}';">
+                    {%if offre.photos|length > 0 %}
+                        <img src="{{path_img}}{{offre.photos[0].uri}}" border="0" align='center'  style="border-radius:8px;-webkit-border-radius: 8px;" height="200" width="200"/>
+                    {% else %}
+                        <img src="{{path_img}}{{default_image}}" border="0" align='center'  style="border-radius:8px;-webkit-border-radius: 8px;" height="200" width="200"/>
+                    {%endif%}
+                </td>
+                <td onclick="location.href = '{{ path('admin_offre_show', { 'id': offre.id }) }}';">{{ offre.id }}</td>
+                <td onclick="location.href = '{{ path('admin_offre_show', { 'id': offre.id }) }}';">{{ offre.nom }}</td>
+                <td onclick="location.href = '{{ path('admin_offre_show', { 'id': offre.id }) }}';">{{ offre.prix }}</td>
+                <td onclick="location.href = '{{ path('admin_offre_show', { 'id': offre.id }) }}';">{{ offre.descriptions }}</td>
+                <td onclick="location.href = '{{ path('admin_offre_show', { 'id': offre.id }) }}';">{{ offre.idEtablissement }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('admin_offre_show', { 'id': offre.id }) }}">afficher</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('admin_offre_edit', { 'id': offre.id }) }}">editer</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('offre_delete_link', { 'id': offre.id }) }}" onclick="return confirm('Ete-vous sure de vouloir le supprimer ?');">supprimer</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+    <div align="center" style="margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif;color:black">
+        {{ knp_pagination_render(offres, 'admin/pagination/pagination.html.twig') }}
+    </div>
+{% endblock %}

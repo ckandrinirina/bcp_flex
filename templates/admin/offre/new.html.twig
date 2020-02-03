@@ -1,0 +1,50 @@
+{% extends 'admin/base.html.twig' %}
+{% block stylesheets %}
+    <head>
+        <link rel="stylesheet" href="{{ asset('assets/admin/css/app.css') }}">
+        <script type="text/javascript" src="{{ asset('assets/admin/js/app.js') }}"></script>
+        <style>
+            .wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+            .wrapper code { background: #F5F5F5; padding: 2px 6px; }
+        </style>
+    </head>
+{% endblock %}
+{% block body %}
+    <h1>Offre creation</h1>
+    
+    <div class="wrapper">
+
+        <form id="myAwesomeForm" method="post" action="{{ path('admin_offre_new', { 'id': etablissement.id }) }}" name="offre_new"  method="post" enctype="multipart/form-data" class="form-group">
+            <div>
+                <label for="App_offre_nom" class="required">nom(*) :</label>
+                <input id="App_offre_nom" type='text' name='App_offre[nom]' class="form-control" required="required" maxlength="255"></br>
+            </div> 
+            <div>
+                <label for="App_offre_descriptions" >Déscriptions :</label>
+                <input id="App_offre_descriptions" type='text' name='App_offre[descriptions]' class="form-control" maxlength="255"></br>
+            </div>
+            <div>
+                <label for="App_offre_prix" >Prix :</label>
+                <input id="App_offre_prix" type='text' name='App_offre[prix]' class="form-control" maxlength="255"></br>
+            </div>
+            <div>
+                <label for="App_offre_file" class="required">Photo(*) :</label>
+                <input id="App_offre_file" type='file' multiple="multiple" name='App_offre[file]' accept='.jpg, .jpeg, .png' class="form-control"></br>
+            </div>
+            <div>
+                <button type="submit" class="form-control btn btn-primary">enregistrer</button>
+            </div>
+
+        </form>
+    </div>
+    {#{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input type="submit" value="Create" />
+    {{ form_end(form) }#}
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_offre_index') }}">retour à la liste</a>
+        </li>
+    </ul>
+{% endblock %}

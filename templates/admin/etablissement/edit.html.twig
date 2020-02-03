@@ -1,0 +1,36 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block stylesheets %}
+    <head>
+        <link rel="stylesheet" href="{{ asset('assets/admin/css/app.css') }}">
+        <script type="text/javascript" src="{{ asset('assets/admin/js/app.js') }}"></script>
+        <style>
+            .wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+            .wrapper code { background: #F5F5F5; padding: 2px 6px; }
+        </style>
+    </head>
+{% endblock %}
+
+{% block body %}
+    <nav class="navbar">
+        <a class="navbar-brand"></a>
+        <h2>nouvel Etablissement </h2>
+        <form class="form-inline">
+            <a href="{{ path('etablissement_index') }}" class="btn btn-primary navbar-brand">Retour à la liste</a>
+        </form>
+    </nav>
+
+    <div class="wrapper">
+        {{ form_start(edit_form) }}
+        {{ form_widget(edit_form) }}
+        <div><input type="submit" value="Edit"  class="btn btn-primary navbar-brand"/></div>
+        {{ form_end(edit_form) }}
+        </br>
+        <table>
+            <td>
+                {{ include('admin/_delete_form.html.twig') }}
+            </td>
+        </table>
+    </div>
+
+{% endblock %}

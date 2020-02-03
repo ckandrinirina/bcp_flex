@@ -1,0 +1,83 @@
+{% extends 'admin/base.html.twig' %}
+{% block stylesheets %}
+    <head>
+        <link rel="stylesheet" href="{{ asset('assets/admin/css/app.css') }}">
+        <script type="text/javascript" src="{{ asset('assets/admin/js/app.js') }}"></script>
+        <style>
+            .wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+            .wrapper code { background: #F5F5F5; padding: 2px 6px; }
+        </style>
+    </head>
+{% endblock %}
+{% block body %}
+    <h1>Etablissement creation</h1>
+
+    {#{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input id="App_etablissement_fileUpload" type='file' name='App_etablissement_fileUpload' accept='.jpg, .jpeg, .png' class="form-control"></br>
+        <input type="submit" value="Create" />
+    {{ form_end(form) }#}
+
+    <div class="wrapper">
+
+        <form id="myAwesomeForm" method="post" action="{{ path('etablissement_new') }}" name="etablissement_new"  method="post" enctype="multipart/form-data" class="form-group">
+            <div>
+                <label for="App_etablissement_nom" class="required">Nom(*) :</label>
+                <input id="App_etablissement_nom" type='text' name='App_etablissement[nom]' class="form-control" required="required" maxlength="255" placeholder="nom de l'établissement"></br>
+            </div> 
+            <div>
+                <label for="App_etablissement_adresse" class="required">Adresse(*) :</label>
+                <input id="App_etablissement_adresse" type='text' name='App_etablissement[adresse]' class="form-control" required="required" maxlength="255" placeholder="adressse"></br>
+            </div>
+            <div>
+                <label for="App_etablissement_fixe" >Fixe :</label>
+                <input id="App_etablissement_fixe" type='text' name='App_etablissement[fixe]' class="form-control" maxlength="255" placeholder="téléphone fixe"></br>
+            </div>
+            <div>
+                <label for="App_etablissement_autre" >Autre :</label>
+                <input id="App_etablissement_autre" type='text' name='App_etablissement[autre]' class="form-control" maxlength="255" placeholder="téléphone portable"></br>
+            </div>
+            <div>
+                <label for="App_etablissement_email" >Email :</label>
+                <input id="App_etablissement_email" type='email' name='App_etablissement[email]' class="form-control" maxlength="255" placeholder="adressse email"></br>
+            </div>
+            <div>
+                <label for="App_etablissement_site" >Site :</label>
+                <input id="App_etablissement_site" type='text' name='App_etablissement[site]' class="form-control" maxlength="255" placeholder="adresse du site"></br>
+            </div>
+            <div>
+                <label for="App_etablissement_specialite" >Specialite :</label>
+                <input id="App_etablissement_specialite" type='text' name='App_etablissement[specialite]' class="form-control" maxlength="255" placeholder="spécialité"></br>
+            </div>
+            <div>
+                <label for="App_etablissement_note" >Note :</label>
+                <input id="App_etablissement_note" type="number" name='App_etablissement[note]' required="required" class="form-control" min="0" max="5" placeholder="note entre 0 et 5"></br>
+            </div>
+            <div>
+                <label for="App_etablissement_prix" >Prix :</label>
+                <input id="App_etablissement_prix" type="number" name='App_etablissement[prix]' class="form-control" maxlength="255" placeholder="prix en ariary"></br>
+            </div>
+            <div>
+                <label for="App_etablissement_type" >Type :</label>
+                <input id="App_etablissement_type" type='text' name='App_etablissement[type]' required="required" class="form-control" maxlength="255" placeholder="hotel ou restorant ou autres"></br>
+            </div>
+            <div>
+                <label for="App_etablissement_file" class="required">Photo(*) :</label>
+                <input id="App_etablissement_file" type='file' name='App_etablissement[file]' required="required" accept='.jpg, .jpeg, .png' class="form-control"></br>
+            </div>
+            <div>
+                <label for="App_etablissement_type" >Déscription :</label>
+                <input id="App_etablissement_description" type='textarea' name='App_etablissement[description]' class="form-control" placeholder="déscription"></br>
+            </div>
+            <div>
+                <button type="submit" class="form-control btn btn-primary">enregistrer</button>
+            </div>
+
+        </form>
+    </div>
+    <ul>
+        <li>
+            <a href="{{ path('etablissement_index') }}">retour à la liste</a>
+        </li>
+    </ul>
+{% endblock %}

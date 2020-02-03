@@ -1,0 +1,75 @@
+{% set lieu = '' %}
+{% set type = '' %}
+{% set budget = '' %}
+{% set params = app.session.get('aSearchParam') %}
+{% set nom = '' %}
+{% if params is not null and params is not empty %}
+    {% set lieu = params.lieu %}
+    {% set type = params.type %}
+    {% set budget = params.budget %}
+    {% set nom = params.nom %}
+{% endif %}
+<header id="header">
+    <div class="header-top">
+    </div>
+    <div class="container main-menu">
+        <div class="row align-items-center justify-content-between d-flex">
+            <div id="logo">
+            </div>
+            <nav id="nav-menu-container">
+                <ul class="nav-menu">
+                    <li>
+                        <form action="{{path('search_etablissament')}}" method="post" class="navbar-form" name="search-form" id="search-form"  accept-charset="utf-8">
+                            <div class="form-group" style="display:inline;">
+                                <div class="input-group">
+                                        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                                            <span class="glyphicon glyphicon-search"></span>
+                                            <span class="nav-label"></span>
+                                        </button>
+                                        <ul id="search-option" class="dropdown-menu pull-left" role="menu">
+                                            <li>
+                                                <div class="form-control">
+                                                    <input type="number" name="budget" class="form-control" placeholder="budget" value="{{budget}}">
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="form-control">
+                                                    <input type="text" name="lieu" class="form-control" placeholder="où?" value="{{lieu}}"/>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="form-control">
+                                                    <select class="form-control" placeholder="type" name="type" value="{{type}}">
+                                                        <option>hotel</option>
+                                                        <option>restorant</option>
+                                                    </select>
+                                                </div>
+                                            </li>
+                                        </ul>			
+                                    <input class="form-control" id="search-input" type="text" name="nom" placeholder="nom de l'établissement"  value="{{nom}}">
+                                    <button type="submit"><i class="fa fa-search btn glyphicon glyphicon-search"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                    </li>
+                    <li><a href="{{path('home')}}">Accueil</a></li>
+                    <li><a href="{{path('restorant')}}">Restaurant et Snack</a></li>
+                    <li><a href="{{path('hotel')}}">Hotels</a></li>
+                    <li><a href="#">Autres</a>
+                        <ul>
+                            <li><a href="#">Evènement</a></li>
+                            <li><a href="{{path('recette')}}">Recette</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="{{path('contact')}}">Contact</a></li>
+                    {% if is_granted('ROLE_USER') %}
+                    <li><a href="{{path('fos_user_security_logout')}}">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a></li>
+                    {% else %}
+                    <li><a href="{{path('fos_user_security_login')}}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a></li>
+                    <li><a href="{{path('fos_user_registration_register')}}">{{ 'registration.submit'|trans({}, 'FOSUserBundle') }}</a></li>
+                    {% endif %}
+                </ul>
+            </nav>	
+        </div>
+    </div>
+</header>

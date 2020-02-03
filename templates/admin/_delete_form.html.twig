@@ -1,0 +1,12 @@
+{% if 'offre' in app.request.pathinfo %}
+    {% set delete_path = path('admin_offre_delete', {'id': offre.id}) %}
+    {% set id = offre.id %}
+{% else %}
+    {% set delete_path = path('etablissement_delete', {'id': etablissement.id}) %}
+    {% set id = etablissement.id %}
+{% endif %}
+<form id="form_delete" class="form-group" method="post" action="{{ delete_path }}" onsubmit="return confirm('Ete-vous sure de vouloir le supprimer ?');">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" id ="form__token" name="form[_token]" value="{{ csrf_token('delete' ~ id) }}">
+    <button class="form-control btn btn-primary navbar-brand">Delete</button>
+</form>

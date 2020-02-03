@@ -1,0 +1,88 @@
+{% extends 'admin/base.html.twig' %}
+{% block stylesheets %}
+    <head>
+        <link rel="stylesheet" href="{{ asset('assets/admin/css/app.css') }}">
+        <script type="text/javascript" src="{{ asset('assets/admin/js/app.js') }}"></script>
+        <style>
+            .wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+            .wrapper code { background: #F5F5F5; padding: 2px 6px; }
+        </style>
+    </head>
+{% endblock %}
+{% block body %}
+    <nav class="navbar">
+        <a href="{{ path('logout') }}"  class="btn btn-primary navbar-brand">déconnecter</a>
+        <a class="navbar-brand"></a>
+        <h2>liste des établissements </h2>
+        <form class="form-inline">
+            <a href="{{ path('etablissement_new') }}" class="btn btn-primary navbar-brand">nouveau</a>
+        </form>
+    </nav>
+    </br>
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th style="margin-left:50px">Photo</th>
+                    <th style="margin-left:50px">Id</th>
+                    <th style="margin-left:50px">Nom</th>
+                    <th style="margin-left:50px">Adresse</th>
+                    <th style="margin-left:50px">Fixe</th>
+                    <th style="margin-left:50px">Autre</th>
+                    <th style="margin-left:50px">Email</th>
+                    <th style="margin-left:50px">Site</th>
+                    <th style="margin-left:50px">Specialite</th>
+                    <th style="margin-left:50px">Prix</th>
+                    <th style="margin-left:50px">Note</th>
+                    <th style="margin-left:50px">nombres de vue</th>
+                    <th style="margin-left:50px">Description</th>
+                    <th style="margin-left:50px">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for etablissement in etablissements %}
+                    <tr>
+                        <td onclick="location.href = '{{ path('etablissement_show', { 'id': etablissement.id }) }}';">
+                            {%if etablissement.photos|length > 0 %}
+                                <img src="{{path_img}}{{etablissement.photos[0].uri}}" border="0" align='center'  style="border-radius:8px;-webkit-border-radius: 8px;" height="200" width="200"/>
+                            {% else %}
+                                <img src="{{path_img}}{{default_image}}" border="0" align='center'  style="border-radius:8px;-webkit-border-radius: 8px;" height="200" width="200"/>
+                            {%endif%}
+                        </td>
+                        <td onclick="location.href = '{{ path('etablissement_show', { 'id': etablissement.id }) }}';">{{ etablissement.id }}</a></td>
+                        <td onclick="location.href = '{{ path('etablissement_show', { 'id': etablissement.id }) }}';">{{ etablissement.nom }}</td>
+                        <td onclick="location.href = '{{ path('etablissement_show', { 'id': etablissement.id }) }}';">{{ etablissement.adresse }}</td>
+                        <td onclick="location.href = '{{ path('etablissement_show', { 'id': etablissement.id }) }}';">{{ etablissement.fixe }}</td>
+                        <td onclick="location.href = '{{ path('etablissement_show', { 'id': etablissement.id }) }}';">{{ etablissement.autre }}</td>
+                        <td onclick="location.href = '{{ path('etablissement_show', { 'id': etablissement.id }) }}';">{{ etablissement.email }}</td>
+                        <td onclick="location.href = '{{ path('etablissement_show', { 'id': etablissement.id }) }}';">{{ etablissement.site }}</td>
+                        <td onclick="location.href = '{{ path('etablissement_show', { 'id': etablissement.id }) }}';">{{ etablissement.specialite }}</td>
+                        <td onclick="location.href = '{{ path('etablissement_show', { 'id': etablissement.id }) }}';">{{ etablissement.prix }}</td>
+                        <td onclick="location.href = '{{ path('etablissement_show', { 'id': etablissement.id }) }}';">{{ etablissement.note }}</td>
+                        <td onclick="location.href = '{{ path('etablissement_show', { 'id': etablissement.id }) }}';">{{ etablissement.viewers }}</td>
+                        <td>{{ etablissement.description }}</td>
+                        <td>
+                            <ul>
+                                <li>
+                                    <a href="{{ path('etablissement_show', { 'id': etablissement.id }) }}">afficher</a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('etablissement_edit', { 'id': etablissement.id }) }}">editer</a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('etablissement_delete_link', { 'id': etablissement.id }) }}" onclick="return confirm('Ete-vous sure de vouloir le supprimer ?');">supprimer</a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('admin_offre_new', { 'id': etablissement.id }) }}">ajouter offre</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div align="center" style="margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif;color:black">
+        {{ knp_pagination_render(etablissements, 'admin/pagination/pagination.html.twig') }}
+    </div>
+{% endblock %}

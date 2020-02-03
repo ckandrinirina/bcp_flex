@@ -1,0 +1,176 @@
+{% extends "base.html.twig" %}
+{% block header %}
+    {%include 'default/header.html.twig'%}
+{% endblock %}
+{% block body %}
+    <section class="about-banner relative">
+        <div class="container">				
+            <div class="row d-flex align-items-center justify-content-center">
+                <div class="about-content col-lg-12">
+                    <h1 class="text-white">
+                        {% if type == 'restorant' %}
+                            {{ "etablissement.title.restorant" | trans | raw}}
+                        {% else %}
+                            {{ "etablissement.title.hotel" | trans | raw}}
+                        {% endif %}
+                        
+                    </h1>
+                </div>	
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End banner Area -->	
+
+<!-- start search result -->
+    <section class="destinations-area section-gap">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class="menu-content pb-40 col-lg-8">
+                    <div class="title text-center">
+                        <h1 class="mb-10">Resultat de recherche</h1>
+                    </div>
+                </div>
+            </div>
+            {%if items|length > 0 %}
+            <div class="row">
+                {% for item in items %}
+                    <div class="col-lg-4">
+                        <div class="single-destinations">
+                            <div class="thumb">
+                                {%if item.photos|length > 0 %}
+                                    <img src="{{path_img}}{{item.photos[0].uri}}" border="0" align='center'  style="border-radius:8px;-webkit-border-radius: 8px;" height="200" width="200"/>
+                                {% else %}
+                                    <img src="{{path_img}}{{default_image}}" border="0" align='center'  style="border-radius:8px;-webkit-border-radius: 8px;" height="200" width="200"/>
+                                {%endif%}
+                            </div>
+                            <div class="details">
+                                <h4 class="d-flex justify-content-between">
+                                    <span><a href="{{path('fiche', { 'id': item.id })}}">{{ item.nom }}</a></span>                           	
+                                    <div class="star">
+                                        {% for itemStar in item.stars %}
+                                            {% if itemStar == 'true' %}
+                                                <span class="fa fa-star checked"></span>
+                                            {% else %}
+                                                <span class="fa fa-star"></span>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>	
+                                </h4>
+                                <p>
+                                    View  |   {{item.viewers}} Reviews
+                                </p>
+                                <ul class="package-list">
+                                    {% for offre in item.offres %}
+                                        <li class="d-flex justify-content-between align-items-center">
+                                            <span>{{ offre.nom }}</span>
+                                            <span>Yes</span>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            {% else %}
+                <div class="row d-flex justify-content-center">
+                <div class="menu-content pb-40 col-lg-8">
+                    <div class="title text-center">
+                        <h1 class="mb-10">(vide)</h1>
+                    </div>
+                </div>
+            </div>
+            {%endif%}
+        </div>
+            <div align="center" style="margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif;color:black">
+                {{ knp_pagination_render(items, 'admin/pagination/pagination.html.twig') }}
+            </div>
+    </section>
+{% if defaultItems|length > 0 %}
+    {% for defaultItem in defaultItems %}
+        {% if loop.index is divisible by(2) %}
+            <section class="insurence-two-area pb-120">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 insurence-left">
+                            <h1><a href="{{path('fiche', { 'id': defaultItem.id })}}">{{defaultItem.nom}}</a></h1>
+                            <p>
+                                Quelses phrases de présentation avec la specialité, les pts forts et les offres 
+                            </p>
+                            <div class="star">
+                                {% for itemStar in defaultItem.stars %}
+                                    {% if itemStar %}
+                                        <span class="fa fa-star checked"></span>
+                                    {% else %}
+                                        <span class="fa fa-star"></span>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <p>
+                                View on map   |   49 Reviews
+                            </p>
+                            <div class="list-wrap">
+                                <ul>
+                                    <li>Adresse: {{defaultItem.adresse}}</li>
+                                    <li>Spécialité: {{defaultItem.specialite}}</li>
+                                    <li>Note: {{defaultItem.note}}</li>
+                                    <li>Prix: {{defaultItem.prix}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 insurence-right">
+                            <img class="img-fluid img-two" src="{{ asset('assets/img/restaurant/sugg2.png') }}" alt="">
+                        </div>						
+                    </div>
+                </div>	
+            </section>
+        {% else %}
+            <section class="insurence-one-area section-gap">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-6 insurence-left">
+                            {%if defaultItem.photos|length > 0 %}
+                                <img src="{{path_img}}{{defaultItem.photos[0].uri}}" border="0" align='center'  style="border-radius:8px;-webkit-border-radius: 8px;" height="200" width="200"/>
+                            {% else %}
+                                <img src="{{path_img}}{{default_image}}" border="0" align='center'  style="border-radius:8px;-webkit-border-radius: 8px;" height="200" width="200"/>
+                            {%endif%}
+                        </div>
+                        <div class="col-lg-6 insurence-right">
+                            <h3 ><a href="{{path('fiche', { 'id': defaultItem.id })}}">{{defaultItem.nom}}</a></h3>
+                            <p>
+                                {%if defaultItem.offres|length > 0 %}
+                                    offres: {{defaultItem.offres[0].nom}},
+                                {%endif%}
+                                specialité: {{defaultItem.specialite}}
+                            </p>
+                            <div class="star">
+                                for 
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star"></span>				
+                            </div>
+                            <p>
+                                View on map   |   49 Reviews
+                            </p>
+                            <div class="list-wrap">
+                                <ul>
+                                    <li>Adresse: {{defaultItem.adresse}}</li>
+                                    <li>Spécialité: {{defaultItem.specialite}}</li>
+                                    <li>Note: {{defaultItem.note}}</li>
+                                    <li>Prix: {{defaultItem.prix}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>	
+            </section>
+        {% endif %}
+    {% endfor %}
+{%endif%}
+{% endblock %}
+{% block footer %}
+    {%include 'default/footer.html.twig'%}
+{% endblock %}

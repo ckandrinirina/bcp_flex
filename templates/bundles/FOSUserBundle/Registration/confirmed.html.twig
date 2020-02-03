@@ -1,0 +1,25 @@
+{% extends "@FOSUser/layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block fos_user_content %}
+<div class="limiter">
+    <div class="container-login100" style="background-image: url('{{asset('assets/home/images/banner.jpg')}}');">
+        <div class="wrap-login100">
+            <h4>{{ 'registration.confirmed'|trans({'%username%': user.username}) }}</h4>
+            {% if targetUrl %}
+            <h4><a href="{{ targetUrl }}">{{ 'registration.back'|trans }}</a></p>
+            {% endif %}
+            <div class="text-center p-t-90">
+                <a class="txt1 text_sep" href="{{path('home')}}">Accueil</a>
+                <a class="txt1 text_sep" href="{{path('fos_user_security_login')}}">
+                    {{ 'layout.login'|trans({}, 'FOSUserBundle') }}
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="dropDownSelect1"></div>
+{% endblock fos_user_content %}
