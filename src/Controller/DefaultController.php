@@ -2,20 +2,18 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-use App\Manager\ServiceManagerInterface;
-use Symfony\Component\HttpFoundation\Session\Session;
 use App\Entity\Etablissement;
 use App\Manager\ServiceManager;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class DefaultController extends CommonController
+
+class DefaultController extends Controller
 {
     private $oManager;
     
     public function __construct(ServiceManager $oManager) {
-        parent::__construct();
         $this->oManager = $oManager;
     }
     

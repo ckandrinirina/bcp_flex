@@ -5,31 +5,29 @@ namespace App\Controller;
 use App\Entity\Offre;
 use App\Entity\Photo;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Etablissement;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
 
 /**
  * Offre controller.
  *
  * @Route("admin/offre")
  */
-class OffreController extends CommonController
+class OffreController extends Controller
 {
     private $oManager;
     
     public function __construct() {
-        parent::__construct();
         $this->oManager = $this->container->get('service.manager');
     }
     
     /**
      * Lists all offre entities.
      *
-     * @Route("/", name="admin_offre_index")
-     * @Method("GET")
+     * @Route("/", name="admin_offre_index",methods={"GET"})
      */
     public function indexAction(Request $oRequest){
         $oEm = $this->getDoctrine()->getManager();
@@ -48,8 +46,7 @@ class OffreController extends CommonController
     /**
      * Creates a new offre entity.
      *
-     * @Route("/{id}/new", name="admin_offre_new")
-     * @Method({"GET", "POST"})
+     * @Route("/{id}/new", name="admin_offre_new",methods={"GET","POST"})
      */
     public function newAction(Request $oRequest, Etablissement $oEtablissement) {
         if ($oRequest->getMethod() == 'POST'){
@@ -82,8 +79,7 @@ class OffreController extends CommonController
     /**
      * Finds and displays a offre entity.
      *
-     * @Route("/{id}/show", name="admin_offre_show")
-     * @Method("GET")
+     * @Route("/{id}/show", name="admin_offre_show",methods={"GET"})
      */
     public function showAction(Offre $oOffre){
         return $this->render('admin/offre/show.html.twig', array(
@@ -94,8 +90,7 @@ class OffreController extends CommonController
     /**
      * Displays a form to edit an existing offre entity.
      *
-     * @Route("/{id}/edit", name="admin_offre_edit")
-     * @Method({"GET", "POST"})
+     * @Route("/{id}/edit", name="admin_offre_edit",methods={"GET","POST"})
      */
     public function editAction(Request $oRequest, Offre $oOffre){
         $oEditForm = $this->createForm('App\Form\OffreType', $oOffre);
@@ -115,8 +110,7 @@ class OffreController extends CommonController
     /**
      * Deletes a offre entity.
      *
-     * @Route("/{id}", name="admin_offre_delete")
-     * @Method("DELETE")
+     * @Route("/{id}", name="admin_offre_delete",methods={"DELETE"})
      */
     public function deleteAction(Request $oRequest, Offre $oOffre){
         if ($oRequest->getMethod() == 'DELETE'){
@@ -146,8 +140,7 @@ class OffreController extends CommonController
     /**
      * Deletes a etablissement entity.
      *
-     * @Route("/{id}/delete", name="offre_delete_link")
-     * @Method("GET")
+     * @Route("/{id}/delete", name="offre_delete_link",methods={"GET"})
      */
     public function linkDeleteAction(Offre $oOffre){
         if (!empty($oOffre)) {

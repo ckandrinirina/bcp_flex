@@ -2,33 +2,29 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-use App\Manager\ServiceManager;
 use App\Entity\Etablissement;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
  * Etablissement controller.
  *
  * @Route("admin/etablissement")
  */
-class EtablissementController extends CommonController
+class EtablissementController extends Controller
 {
     private $oManager;
     
     public function __construct() {
-        parent::__construct();
         $this->oManager = $this->container->get('service.manager');
     }
     
     /**
      * Lists all etablissement entities.
      *
-     * @Route("/", name="etablissement_index")
-     * @Method("GET")
+     * @Route("/", name="etablissement_index",methods={"GET"})
      */
     public function indexAction(Request $request) {
         $oQuery = $this->oManager->getEtablissement('');
@@ -42,8 +38,7 @@ class EtablissementController extends CommonController
     /**
      * Creates a new etablissement entity.
      *
-     * @Route("/new", name="etablissement_new")
-     * @Method({"GET", "POST"})
+     * @Route("/new", name="etablissement_new",methods={"POST"})
      */
     public function newAction(Request $request) {
         if ($request->getMethod() == 'POST'){
@@ -60,8 +55,7 @@ class EtablissementController extends CommonController
     /**
      * Finds and displays a etablissement entity.
      *
-     * @Route("/{id}/show", name="etablissement_show")
-     * @Method("GET")
+     * @Route("/{id}/show", name="etablissement_show",methods={"GET"})
      */
     public function showAction(Etablissement $oEtablissement) {
         $deleteForm = $this->createDeleteForm($oEtablissement);
@@ -74,8 +68,7 @@ class EtablissementController extends CommonController
     /**
      * Displays a form to edit an existing etablissement entity.
      *
-     * @Route("/{id}/edit", name="etablissement_edit")
-     * @Method({"GET", "POST"})
+     * @Route("/{id}/edit", name="etablissement_edit",methods={"GET","POST"})
      */
     public function editAction(Request $request, Etablissement $oEtablissement) {
         $deleteForm = $this->createDeleteForm($oEtablissement);
@@ -95,8 +88,7 @@ class EtablissementController extends CommonController
     /**
      * Deletes a etablissement entity.
      *
-     * @Route("/{id}", name="etablissement_delete")
-     * @Method("DELETE")
+     * @Route("/{id}", name="etablissement_delete",methods={"DELETE"})
      */
     public function deleteAction(Request $request, Etablissement $oEtablissement) {
         $form = $this->createDeleteForm($oEtablissement);
@@ -125,8 +117,7 @@ class EtablissementController extends CommonController
     /**
      * Deletes a etablissement entity.
      *
-     * @Route("/{id}/delete", name="etablissement_delete_link")
-     * @Method("GET")
+     * @Route("/{id}/delete", name="etablissement_delete_link",methods={"GET"})
      */
     public function linkDeleteAction(Etablissement $oEtablissement) {
         if (!empty($oEtablissement)) {
