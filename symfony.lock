@@ -93,18 +93,6 @@
     "doctrine/reflection": {
         "version": "v1.1.0"
     },
-    "friendsofsymfony/jsrouting-bundle": {
-        "version": "2.3",
-        "recipe": {
-            "repo": "github.com/symfony/recipes-contrib",
-            "branch": "master",
-            "version": "2.3",
-            "ref": "a9f2e49180f75cdc71ae279a929c4b2e0638de84"
-        },
-        "files": [
-            "./config/routes/fos_js_routing.yaml"
-        ]
-    },
     "friendsofsymfony/user-bundle": {
         "version": "v2.1.2"
     },
@@ -178,9 +166,6 @@
             "./config/packages/sensio_framework_extra.yaml"
         ]
     },
-    "sensio/generator-bundle": {
-        "version": "v3.1.7"
-    },
     "sensiolabs/security-checker": {
         "version": "4.0",
         "recipe": {
@@ -191,18 +176,6 @@
         },
         "files": [
             "./config/packages/security_checker.yaml"
-        ]
-    },
-    "sg/datatablesbundle": {
-        "version": "1.0",
-        "recipe": {
-            "repo": "github.com/symfony/recipes-contrib",
-            "branch": "master",
-            "version": "1.0",
-            "ref": "a8e5ae79a1eceec929a7393143c85ddf0ae0b4ff"
-        },
-        "files": [
-            "./config/routes/sg_datatables_bundle.yaml"
         ]
     },
     "swiftmailer/swiftmailer": {
@@ -409,9 +382,6 @@
             "./config/packages/security.yaml"
         ]
     },
-    "symfony/serializer": {
-        "version": "v3.4.37"
-    },
     "symfony/service-contracts": {
         "version": "v2.0.1"
     },
@@ -491,9 +461,6 @@
     },
     "twig/twig": {
         "version": "v2.12.3"
-    },
-    "willdurand/jsonp-callback-validator": {
-        "version": "v1.1.0"
     },
     "zendframework/zend-code": {
         "version": "3.4.1"

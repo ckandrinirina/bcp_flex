@@ -4,54 +4,63 @@
 {% endblock %}
 
 {% block content_header %}
-<h1>
-    Evenement
-</h1>
-<ol class="breadcrumb">
-    <li>
-        <a href="#">
-            <i class="fa fa-dashboard"></i>
-            liste</a>
-    </li>
-    <li class="active">Here</li>
-</ol>
+	<h1>
+		Evenement
+	</h1>
+	<ol class="breadcrumb">
+		<li>
+			<a href="#">
+				<i class="fa fa-dashboard"></i>
+				liste</a>
+		</li>
+		<li class="active">Here</li>
+	</ol>
 {% endblock %}
 
 
 {% block body %}
-<h1>Liste des évenement</h1>
+	<div class="box">
+		<div class="box-header">
+			<h3 class="box-title">Liste des évenements</h3>
+		</div>
+		<!-- /.box-header -->
+		<div class="box-body">
+			<table class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Nom</th>
+						<th>Presentation</th>
+						<th>Date</th>
+						<th>Place</th>
+						<th>actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for event in events %}
+						<tr>
+							<td>{{ event.id }}</td>
+							<td>{{ event.nom }}</td>
+							<td>{{ event.presentation }}</td>
+							<td>{{ event.date ? event.date|date('Y-m-d') : '' }}</td>
+							<td>{{ event.place }}</td>
+							<td>
+								<a href="{{ path('event_show', {'id': event.id}) }}">show</a>
+								<a href="{{ path('event_edit', {'id': event.id}) }}">edit</a>
+							</td>
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="6">no records found</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<a href="{{ path('event_new') }}">Create new</a>
+{% endblock %}
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Nom</th>
-            <th>Presentation</th>
-            <th>Date</th>
-            <th>Place</th>
-            <th>actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for event in events %}
-        <tr>
-            <td>{{ event.id }}</td>
-            <td>{{ event.nom }}</td>
-            <td>{{ event.presentation }}</td>
-            <td>{{ event.date ? event.date|date('Y-m-d') : '' }}</td>
-            <td>{{ event.place }}</td>
-            <td>
-                <a href="{{ path('event_show', {'id': event.id}) }}">show</a>
-                <a href="{{ path('event_edit', {'id': event.id}) }}">edit</a>
-            </td>
-        </tr>
-        {% else %}
-        <tr>
-            <td colspan="6">no records found</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-
-<a href="{{ path('event_new') }}">Create new</a>
+{% block script %}
+<script></script>
 {% endblock %}

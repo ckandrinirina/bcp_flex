@@ -169,10 +169,7 @@
 	</script>
 	<!-- AdminLTE App -->
 	<script src="{{asset('assets/admin_assets/dist/js/adminlte.min.js')}}"></script>
-	<script src="{{ asset('bundles/sgdatatables/js/pipeline.js') }}"></script>
-
-	<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-	<script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+	{% block script %}{% endblock %}
 </body>
 
 </html>
