@@ -24,12 +24,12 @@ class Recette
     private $nom;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\etape", mappedBy="recette")
+     * @ORM\OneToMany(targetEntity="App\Entity\Etape", mappedBy="recette")
      */
     private $etapes;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\picture", mappedBy="recette")
+     * @ORM\OneToMany(targetEntity="App\Entity\Picture", mappedBy="recette")
      */
     private $pictures;
 

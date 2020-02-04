@@ -39,7 +39,7 @@ class Event
     private $place;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\picture", mappedBy="event")
+     * @ORM\OneToMany(targetEntity="App\Entity\Picture", mappedBy="event")
      */
     private $pictures;
 

@@ -69,7 +69,7 @@ class Hotel
     private $viewers;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\picture", mappedBy="hotel")
+     * @ORM\OneToMany(targetEntity="App\Entity\Picture", mappedBy="hotel")
      */
     private $pictures;
 
