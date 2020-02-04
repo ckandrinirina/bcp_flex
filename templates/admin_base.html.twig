@@ -9,6 +9,8 @@
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 	<link rel="stylesheet"
 		href="{{asset('assets/admin_assets/bower_components/bootstrap/dist/css/bootstrap.min.css')}}">
+	<link rel="stylesheet" href="{{asset('assets/admin_assets/data_table_dependence/bootstrap-editable.css')}}">
+	<link rel="stylesheet" href="{{asset('assets/admin_assets/data_table_dependence/featherlight.min.css')}}">
 	<!-- Font Awesome -->
 	<link rel="stylesheet"
 		href="{{asset('assets/admin_assets/bower_components/font-awesome/css/font-awesome.min.css')}}">
@@ -36,9 +38,11 @@
 	<!-- bootstrap wysihtml5 - text editor -->
 	<link rel="stylesheet"
 		href="{{asset('assets/admin_assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}">
+	<link rel="stylesheet"
+		href="{{asset('assets/admin_assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css')}}">
 </head>
 
-<body class="hold-transition skin-blue sidebar-mini"> {% block body %}{% endblock %}
+<body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">
 
 		<!-- Main Header -->
@@ -121,23 +125,12 @@
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
-				<h1>
-					Page Header
-					<small>Optional description</small>
-				</h1>
-				<ol class="breadcrumb">
-					<li>
-						<a href="#">
-							<i class="fa fa-dashboard"></i>
-							Level</a>
-					</li>
-					<li class="active">Here</li>
-				</ol>
+				{% block content_header %}{% endblock %}
 			</section>
 
 			<!-- Main content -->
 			<section class="content container-fluid">
-
+				{% block body %}{% endblock %}
 			</section>
 			<!-- /.content -->
 		</div>
@@ -147,7 +140,7 @@
 		<footer class="main-footer">
 			<!-- To the right -->
 			<div class="pull-right hidden-xs">
-				Anything you want
+				CK
 			</div>
 			<!-- Default to the left -->
 			<strong>Copyright &copy; 2016
@@ -166,15 +159,20 @@
 	<!-- Material Design -->
 	<script src="{{asset('assets/admin_assets/dist/js/material.min.js')}}"></script>
 	<script src="{{asset('assets/admin_assets/dist/js/ripples.min.js')}}"></script>
+	<script src="{{asset('assets/admin_assets/bower_components/moment/min/moment.min.js')}}"></script>
+	<script src="{{asset('assets/admin_assets/bower_components/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
+	<script src="{{asset('assets/admin_assets/data_table_dependence/datatables.js')}}"></script>
+	<script src="{{asset('assets/admin_assets/data_table_dependence/bootstrap-editable.min.js')}}"></script>
+	<script src="{{asset('assets/admin_assets/data_table_dependence/featherlight.min.js')}}"></script>
 	<script>
 		$.material.init();
 	</script>
 	<!-- AdminLTE App -->
 	<script src="{{asset('assets/admin_assets/dist/js/adminlte.min.js')}}"></script>
+	<script src="{{ asset('bundles/sgdatatables/js/pipeline.js') }}"></script>
 
-	<!-- Optionally, you can add Slimscroll and FastClick plugins.
-										     Both of these plugins are recommended to enhance the
-										     user experience. -->
+	<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+	<script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
 </body>
 
 </html>
