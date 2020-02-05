@@ -59,8 +59,13 @@
 		</div>
 	</div>
 	<a href="{{ path('event_new') }}">Create new</a>
+	<div ng-controller="EventCtrl">
+	<h1>{{'{{name}}'}}</h1>
+	</div>
 {% endblock %}
 
 {% block script %}
-<script></script>
+	<script src="{{asset('assets/angular/angular.min.js')}}"></script>
+	<script src="{{asset('assets/angular/app.js')}}"></script>
+	<script src="{{asset('assets/angular/controller/eventCtrl.js')}}"></script>
 {% endblock %}
