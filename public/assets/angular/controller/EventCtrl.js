@@ -24,7 +24,10 @@ app.controller('EventCtrl',['$scope','$http', function($scope,$http) {
                 'searching'   : false,
                 'ordering'    : false,
                 'info'        : false,
-                'autoWidth'   : false
+                'autoWidth'   : false,
+                "language": {
+                    "emptyTable":     "Pas de résultat"
+                }
             });
         },function error(response){
             console.log(response);

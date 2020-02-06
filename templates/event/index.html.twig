@@ -25,6 +25,12 @@
 		</div>
 		<!-- /.box-header -->
 		<div class="box-body">
+			<select>
+				<option>1</option>
+				<option>2</option>
+				<option>3</option>
+				<option>4</option>
+			</select>
 			<table class="table table-bordered table-striped" id="eventTable">
 				<thead>
 					<tr>
@@ -42,7 +48,5 @@
 {% endblock %}
 
 {% block script %}
-	<script src="{{asset('assets/angular/angular.min.js')}}"></script>
-	<script src="{{asset('assets/angular/app.js')}}"></script>
 	<script src="{{asset('assets/angular/controller/eventCtrl.js')}}"></script>
 {% endblock %}
