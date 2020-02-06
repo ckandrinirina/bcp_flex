@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Entity\Event;
 use App\Form\EventType;
 use App\Repository\EventRepository;
+use Doctrine\Common\Annotations\Annotation\Required;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -90,5 +92,23 @@ class EventController extends Controller
         }
 
         return $this->redirectToRoute('event_index');
+    }
+
+    /**
+     * @Route("/json/data", name="event_json", options = { "expose" = true })
+     */
+    public function ajaxGetEvent(EventRepository $eventRepository): Response
+    {
+        $allEvent = $eventRepository->findAll();
+        foreach ($allEvent as $key => $value) {
+            $output[]=[
+                'id'=>$value->getId(),
+                'nom'=>$value->getNom(),
+                'presentation'=>$value->getPresentation(),
+                'date'=>$value->getDate()->format('d-m-Y'),
+                'place'=>$value->getPlace(),
+            ];
+        }
+        return new JsonResponse($output);
     }
 }

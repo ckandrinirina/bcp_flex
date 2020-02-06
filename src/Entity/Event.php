@@ -30,6 +30,7 @@ class Event
 
     /**
      * @ORM\Column(type="date")
+     * @var string A "Y-m-d H:i:s" formatted value
      */
     private $date;
 

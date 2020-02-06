@@ -160,10 +160,13 @@
 	<script src="{{asset('assets/admin_assets/dist/js/material.min.js')}}"></script>
 	<script src="{{asset('assets/admin_assets/dist/js/ripples.min.js')}}"></script>
 	<script src="{{asset('assets/admin_assets/bower_components/moment/min/moment.min.js')}}"></script>
-	<script src="{{asset('assets/admin_assets/bower_components/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
+	<script src="{{asset('assets/admin_assets/bower_components/bootstrap-daterangepicker/daterangepicker.js')}}">
+	</script>
 	<script src="{{asset('assets/admin_assets/data_table_dependence/datatables.js')}}"></script>
 	<script src="{{asset('assets/admin_assets/data_table_dependence/bootstrap-editable.min.js')}}"></script>
 	<script src="{{asset('assets/admin_assets/data_table_dependence/featherlight.min.js')}}"></script>
+	<script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+	<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
 	<script>
 		$.material.init();
 	</script>
