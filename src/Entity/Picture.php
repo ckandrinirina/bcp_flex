@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Doctrine\ORM\Mapping\JoinColumn;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PictureRepository")
  */
@@ -23,21 +23,25 @@ class Picture
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Recette", inversedBy="pictures")
+     * @JoinColumn(onDelete="CASCADE")
      */
     private $recette;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Event", inversedBy="pictures")
+     * @JoinColumn(onDelete="CASCADE")
      */
     private $event;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Restaurant", inversedBy="pictures")
+     * @JoinColumn(onDelete="CASCADE")
      */
     private $restaurant;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Hotel", inversedBy="pictures")
+     * @JoinColumn(onDelete="CASCADE")
      */
     private $hotel;
 

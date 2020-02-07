@@ -81,17 +81,15 @@ class EventController extends Controller
     }
 
     /**
-     * @Route("/{id}", name="event_delete", methods={"DELETE"})
+     * @Route("/delete/{id}", name="event_delete", methods={"GET"},options = { "expose" = true })
      */
     public function delete(Request $request, Event $event): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$event->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($event);
-            $entityManager->flush();
-        }
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($event);
+        $entityManager->flush();
 
-        return $this->redirectToRoute('event_index');
+        return new JsonResponse();
     }
 
     /**

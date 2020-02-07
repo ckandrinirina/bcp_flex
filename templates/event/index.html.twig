@@ -13,32 +13,35 @@
 				<i class="fa fa-dashboard"></i>
 				liste</a>
 		</li>
-		<li class="active">Here</li>
 	</ol>
 {% endblock %}
 
 
 {% block body %}
-	<div class="box" ng-controller="EventCtrl">
+	<div class="box">
 		<div class="box-header">
 			<h3 class="box-title">Liste des évenements</h3>
 		</div>
 		<!-- /.box-header -->
 		<div class="box-body">
-			<select>
-				<option>1</option>
-				<option>2</option>
-				<option>3</option>
-				<option>4</option>
-			</select>
-			<table class="table table-bordered table-striped" id="eventTable">
+			<div class="form-group option-table">
+				<label>Nombres à afficher</label>
+				<select class="form-control">
+					<option>1</option>
+					<option>2</option>
+					<option>3</option>
+					<option>4</option>
+					<option>5</option>
+				</select>
+			</div>
+			<table class="table table-bordered table-striped" id="datatable">
 				<thead>
 					<tr>
-						<th>Id</th>
 						<th>Nom</th>
 						<th>Presentation</th>
 						<th>Date</th>
 						<th>Place</th>
+						<th class="actionTable">Actions</th>
 					</tr>
 				</thead>
 			</table>
@@ -48,5 +51,5 @@
 {% endblock %}
 
 {% block script %}
-	<script src="{{asset('assets/angular/controller/eventCtrl.js')}}"></script>
+	<script src="{{asset('assets/data/controller/eventCtrl.js')}}"></script>
 {% endblock %}
