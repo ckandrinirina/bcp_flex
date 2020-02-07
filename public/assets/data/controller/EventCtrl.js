@@ -1,46 +1,65 @@
-const $datatable = $('#datatable');
-limit = 5;
-offset = 0;
-
 url = 'event_json';
 urlDel = 'event_delete'
 urlEdit = 'event_edit'
 
+const $datatable = $('#datatable');
+limit = 5;
+offset = 0;
+columns = [{
+        data: 'nom'
+    },
+    {
+        data: 'presentation'
+    },
+    {
+        data: 'date'
+    },
+    {
+        data: 'place'
+    },
+    {
+        data: 'actions'
+    }
+]
+
 $(document).ready(function () {
     initTable();
     pagination();
+    initAction();
+});
 
+function initAction() {
     $datatable.on('click', '.deleteAction', function () {
         deleteConfirme($(this).attr('id_element'));
     })
 
-    $datatable.on('click','.editAction',function (){
-        location.href = Routing.generate(urlEdit ,{id: $(this).attr('id_element')});
+    $datatable.on('click', '.editAction', function () {
+        location.href = Routing.generate(urlEdit, {
+            id: $(this).attr('id_element')
+        });
     })
-    
-});
+}
 
-function pagination(){
-    $('.next').on('click',function(){
+function pagination() {
+    $('.next').on('click', function () {
         offset = offset + limit;
-        $('.previous').attr('disabled',false);
-        if(offset >= total ){
-            $('.next').attr('disabled',true);
-        }else{
+        $('.previous').attr('disabled', false);
+        if (offset >= total) {
+            $('.next').attr('disabled', true);
+        } else {
             table.destroy();
             initTable('event_json');
         }
     })
 
-    $('.previous').on('click',function(){
+    $('.previous').on('click', function () {
         offset = offset - limit;
-        $('.next').attr('disabled',false);
-        if(offset >= 0 ){
+        $('.next').attr('disabled', false);
+        if (offset >= 0) {
             table.destroy();
             initTable('event_json');
-        }
-        else{
-            $('.previous').attr('disabled',true);
+        } else {
+            $('.previous').attr('disabled', true);
         }
     })
 }
@@ -48,46 +67,34 @@ function pagination(){
 function initTable() {
     $.ajax({
         type: "GET",
-        url: Routing.generate(url,{'limit':limit,'offset':offset}),
+        url: Routing.generate(url, {
+            'limit': limit,
+            'offset': offset
+        }),
         data: {
             data: 'data'
         },
         success: function (response) {
-            total = response.count ;
+            total = response.count;
             table = $datatable.DataTable({
-                        data: response.data,
-                        columns: [{
-                                data: 'nom'
-                            },
-                            {
-                                data: 'presentation'
-                            },
-                            {
-                                data: 'date'
-                            },
-                            {
-                                data: 'place'
-                            },
-                            {
-                                data: 'actions'
-                            }
-                        ],
-                        'paging': false,
-                        'lengthChange': false,
-                        'searching': false,
-                        'ordering': false,
-                        'info': false,
-                        'autoWidth': false,
-                        "language": {
-                            "emptyTable": "Pas de résultat"
-                        },
-                        columnDefs: [{
-                            targets: [-1],
-                            render: function (data, type, row, meta) {
-                                return '<button type="button" class="btn btn-primary editAction" id_element="' + row.id + '"><i class="fa fa-edit"></i></button>' +
-                                    '<button type="button" class="btn btn-danger deleteAction" id_element="' + row.id + '"><i class="fa fa-times"></i></button>'
-                            }
-                        }],
+                data: response.data,
+                columns: columns,
+                'paging': false,
+                'lengthChange': false,
+                'searching': false,
+                'ordering': false,
+                'info': false,
+                'autoWidth': false,
+                "language": {
+                    "emptyTable": "Pas de résultat"
+                },
+                columnDefs: [{
+                    targets: [-1],
+                    render: function (data, type, row, meta) {
+                        return '<button type="button" class="btn btn-primary editAction" id_element="' + row.id + '"><i class="fa fa-edit"></i></button>' +
+                            '<button type="button" class="btn btn-danger deleteAction" id_element="' + row.id + '"><i class="fa fa-times"></i></button>'
+                    }
+                }],
             });
         },
         error: function (response) {
@@ -117,7 +124,9 @@ function deleteConfirme(id) {
 function deleteAction(id) {
     $.ajax({
         type: "GET",
-        url: Routing.generate(urlDel,{id:id}),
+        url: Routing.generate(urlDel, {
+            id: id
+        }),
         data: {
             id: id
         },
@@ -128,7 +137,7 @@ function deleteAction(id) {
                 'success'
             )
             table.destroy();
-            initTable(url);
+            initTable();
         }
     });
 }
