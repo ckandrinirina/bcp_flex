@@ -13,7 +13,6 @@ class EventFixtures extends Fixture implements OrderedFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-        $pictureRepository = $manager->getRepository(Picture::class);
         for($i=0;$i<20;$i++)
         {
             $event = new Event();

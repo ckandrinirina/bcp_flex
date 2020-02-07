@@ -19,6 +19,24 @@ class EventRepository extends ServiceEntityRepository
         parent::__construct($registry, Event::class);
     }
 
+    public function customFindByCriter($limit,$offset)
+    {
+        return $this->createQueryBuilder('e')
+            ->setFirstResult( $offset )
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function customFindByCriterCount()
+    {
+        return $this->createQueryBuilder('e')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Event[] Returns an array of Event objects
     //  */

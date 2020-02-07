@@ -93,13 +93,14 @@ class EventController extends Controller
     }
 
     /**
-     * @Route("/json/data", name="event_json", options = { "expose" = true })
+     * @Route("/json/data/{limit}/{offset}", name="event_json", options = { "expose" = true })
      */
-    public function ajaxGetEvent(EventRepository $eventRepository): Response
+    public function ajaxGetEvent($limit,$offset,EventRepository $eventRepository): Response
     {
-        $allEvent = $eventRepository->findAll();
+        $allEvent = $eventRepository->customFindByCriter($limit,$offset);
+        $numberOfAllEvent = count($eventRepository->customFindByCriterCount());
         foreach ($allEvent as $key => $value) {
-            $output[]=[
+            $data[]=[
                 'id'=>$value->getId(),
                 'nom'=>$value->getNom(),
                 'presentation'=>$value->getPresentation(),
@@ -107,6 +108,8 @@ class EventController extends Controller
                 'place'=>$value->getPlace(),
             ];
         }
+        $output['count'] = $numberOfAllEvent;
+        $output['data'] = $data;
         return new JsonResponse($output);
     }
 }

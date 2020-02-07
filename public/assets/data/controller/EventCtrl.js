@@ -1,26 +1,61 @@
 const $datatable = $('#datatable');
+limit = 5;
+offset = 0;
+
+url = 'event_json';
+urlDel = 'event_delete'
+urlEdit = 'event_edit'
+
 $(document).ready(function () {
-    initTable('event_json');
+    initTable();
+    pagination();
 
     $datatable.on('click', '.deleteAction', function () {
-        deleteConfirme($(this).attr('id_element'),'event_delete','event_json');
+        deleteConfirme($(this).attr('id_element'));
     })
 
     $datatable.on('click','.editAction',function (){
-        location.href = Routing.generate('event_edit',{id: $(this).attr('id_element')});
+        location.href = Routing.generate(urlEdit ,{id: $(this).attr('id_element')});
     })
+    
 });
 
-function initTable(url) {
+function pagination(){
+    $('.next').on('click',function(){
+        offset = offset + limit;
+        $('.previous').attr('disabled',false);
+        if(offset >= total ){
+            $('.next').attr('disabled',true);
+        }else{
+            table.destroy();
+            initTable('event_json');
+        }
+    })
+
+    $('.previous').on('click',function(){
+        offset = offset - limit;
+        $('.next').attr('disabled',false);
+        if(offset >= 0 ){
+            table.destroy();
+            initTable('event_json');
+        }
+        else{
+            $('.previous').attr('disabled',true);
+        }
+    })
+}
+
+function initTable() {
     $.ajax({
         type: "GET",
-        url: Routing.generate(url),
+        url: Routing.generate(url,{'limit':limit,'offset':offset}),
         data: {
             data: 'data'
         },
         success: function (response) {
+            total = response.count ;
             table = $datatable.DataTable({
-                        data: response,
+                        data: response.data,
                         columns: [{
                                 data: 'nom'
                             },
@@ -62,7 +97,7 @@ function initTable(url) {
     });
 }
 
-function deleteConfirme(id, urlDel, url) {
+function deleteConfirme(id) {
     Swal.fire({
         title: 'Voulez-vous supprimer?',
         text: "Cette action est irréversible!",
@@ -74,12 +109,12 @@ function deleteConfirme(id, urlDel, url) {
         cancelButtonText: 'Annuler',
     }).then((result) => {
         if (result.value) {
-            deleteAction(id, urlDel, url);
+            deleteAction(id);
         }
     })
 }
 
-function deleteAction(id, urlDel, url) {
+function deleteAction(id) {
     $.ajax({
         type: "GET",
         url: Routing.generate(urlDel,{id:id}),
