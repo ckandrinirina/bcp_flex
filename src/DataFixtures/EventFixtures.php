@@ -21,7 +21,6 @@ class EventFixtures extends Fixture implements OrderedFixtureInterface
             $event->setPresentation('presentation_'.$i);
             $event->setDate(new DateTime());
             $event->setPlace('place_'.$i);
-            $event->addPicture($pictureRepository->find(mt_rand(1, 199)));
             $manager->persist($event);
         }
 
