@@ -1,9 +1,9 @@
 const $datatable = $('#datatable');
 $(document).ready(function () {
-    initTable();
+    initTable('event_json');
 
     $datatable.on('click', '.deleteAction', function () {
-        deleteConfirme($(this).attr('id_element'),'event_delete');
+        deleteConfirme($(this).attr('id_element'),'event_delete','event_json');
     })
 
     $datatable.on('click','.editAction',function (){
@@ -11,10 +11,10 @@ $(document).ready(function () {
     })
 });
 
-function initTable() {
+function initTable(url) {
     $.ajax({
         type: "GET",
-        url: Routing.generate('event_json'),
+        url: Routing.generate(url),
         data: {
             data: 'data'
         },
@@ -62,7 +62,7 @@ function initTable() {
     });
 }
 
-function deleteConfirme(id, url) {
+function deleteConfirme(id, urlDel, url) {
     Swal.fire({
         title: 'Voulez-vous supprimer?',
         text: "Cette action est irréversible!",
@@ -74,15 +74,15 @@ function deleteConfirme(id, url) {
         cancelButtonText: 'Annuler',
     }).then((result) => {
         if (result.value) {
-            deleteAction(id, url);
+            deleteAction(id, urlDel, url);
         }
     })
 }
 
-function deleteAction(id, url) {
+function deleteAction(id, urlDel, url) {
     $.ajax({
         type: "GET",
-        url: Routing.generate(url,{id:id}),
+        url: Routing.generate(urlDel,{id:id}),
         data: {
             id: id
         },
@@ -93,7 +93,7 @@ function deleteAction(id, url) {
                 'success'
             )
             table.destroy();
-            initTable();
+            initTable(url);
         }
     });
 }
