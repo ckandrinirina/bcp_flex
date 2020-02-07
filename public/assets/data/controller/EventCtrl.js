@@ -5,6 +5,10 @@ $(document).ready(function () {
     $datatable.on('click', '.deleteAction', function () {
         deleteConfirme($(this).attr('id_element'),'event_delete');
     })
+
+    $datatable.on('click','.editAction',function (){
+        location.href = Routing.generate('event_edit',{id: $(this).attr('id_element')});
+    })
 });
 
 function initTable() {

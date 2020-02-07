@@ -61,7 +61,7 @@ class EventController extends Controller
     }
 
     /**
-     * @Route("/{id}/edit", name="event_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="event_edit", methods={"GET","POST"}, options = { "expose" = true })
      */
     public function edit(Request $request, Event $event): Response
     {
