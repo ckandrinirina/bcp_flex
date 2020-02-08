@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\Event;
 use App\Form\EventType;
 use App\Repository\EventRepository;
-use Doctrine\Common\Annotations\Annotation\Required;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -85,36 +85,44 @@ class EventController extends Controller
      */
     public function delete(Request $request, Event $event): Response
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->remove($event);
-        $entityManager->flush();
-
-        return new JsonResponse();
+        if ($request->isXmlHttpRequest()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($event);
+            $entityManager->flush();
+    
+            return new JsonResponse();
+        } else {
+            throw $this->createNotFoundException('Page not found');
+        }
     }
 
     /**
      * @Route("/json/data/{limit}/{offset}/{search}", name="event_json", options = { "expose" = true })
      */
-    public function ajaxGetEvent($limit,$offset,$search='',EventRepository $eventRepository): Response
+    public function ajaxGetEvent($limit, $offset, $search = '', EventRepository $eventRepository, Request $request): Response
     {
-        $allEvent = $eventRepository->customFindByCriter($limit,$offset,$search);
-        $numberOfAllEvent = count($eventRepository->customFindByCriterCount($search));
-        foreach ($allEvent as $key => $value) {
-            $data[]=[
-                'id'=>$value->getId(),
-                'nom'=>$value->getNom(),
-                'presentation'=>$value->getPresentation(),
-                'date'=>$value->getDate()->format('d-m-Y'),
-                'place'=>$value->getPlace(),
-            ];
+        if ($request->isXmlHttpRequest()) {
+            $allEvent = $eventRepository->customFindByCriter($limit, $offset, $search);
+            $numberOfAllEvent = count($eventRepository->customFindByCriterCount($search));
+            foreach ($allEvent as $key => $value) {
+                $data[] = [
+                    'id' => $value->getId(),
+                    'nom' => $value->getNom(),
+                    'presentation' => $value->getPresentation(),
+                    'date' => $value->getDate()->format('d-m-Y'),
+                    'place' => $value->getPlace(),
+                ];
+            }
+            if (isset($data)) {
+                $output['count'] = $numberOfAllEvent;
+                $output['data'] = $data;
+            } else {
+                $output['count'] = [];
+                $output['data'] = [];
+            }
+            return new JsonResponse($output);
+        } else {
+            throw $this->createNotFoundException('Page not found');
         }
-        if(isset($data)){
-            $output['count'] = $numberOfAllEvent;
-            $output['data'] = $data;
-        }else{
-            $output['count']=[];
-            $output['data']=[];
-        }
-        return new JsonResponse($output);
     }
 }
