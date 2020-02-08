@@ -1,35 +1,77 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin_base.html.twig' %}
 
-{% block title %}Recette index{% endblock %}
+{% block title %}Recette index
+{% endblock %}
+
+{% block content_header %}
+	<h1>
+		Recette
+	</h1>
+	<ol class="breadcrumb">
+		<li>
+			<a href="#">
+				<i class="fa fa-dashboard"></i>
+				liste</a>
+		</li>
+	</ol>
+{% endblock %}
 
 {% block body %}
-    <h1>Recette index</h1>
+	<div class="box">
+		<div class="box-header">
+			<h3 class="box-title">Liste des recettes</h3>
+		</div>
+		<!-- /.box-header -->
+		<div class="box-body">
+			<div class="row">
+				<div class="form-group col-md-4 search-block">
+					<input type="text" class="form-control search" placeholder="Rechercher ...">
+					<button class="btn btn-default doSearch">
+						<i class="fa fa-search"></i>
+					</button>
+				</div>
+				<div class="form-group col-md-2 col-md-offset-6 pull-right">
+					<a href="{{ path('recette_new') }}" class="btn btn-default">Creer</a>
+				</div>
+			</div>
+			<table class="table table-bordered table-striped" id="datatable">
+				<thead>
+					<tr>
+						<th>Nom</th>
+						<th class="actionTable">actions</th>
+					</tr>
+				</thead>
+			</table>
+			<div class="pull-right">
+				<button class="btn btn-default previous">
+					<i class="fa fa-reply"></i>
+				</button>
+				<button class="btn btn-default next">
+					<i class="fa fa-share"></i>
+				</button>
+			</div>
+		</div>
+	</div>
+{% endblock %}
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for recette in recettes %}
-            <tr>
-                <td>{{ recette.id }}</td>
-                <td>{{ recette.nom }}</td>
-                <td>
-                    <a href="{{ path('recette_show', {'id': recette.id}) }}">show</a>
-                    <a href="{{ path('recette_edit', {'id': recette.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+{% block script %}
+	<script>
+        url = 'recette_json';
+        urlDel = 'recette_delete';
+        urlEdit = 'recette_edit';
+        columns = [{
+                data: 'nom'
+            },
+            {
+                data: 'actions'
+            }
+        ]
 
-    <a href="{{ path('recette_new') }}">Create new</a>
+        $(document).ready(function () {
+            initTable();
+            pagination();
+            initAction();
+        });
+    </script>
+	<script src="{{asset('assets/ck/ckdatatable.js')}}"></script>
 {% endblock %}

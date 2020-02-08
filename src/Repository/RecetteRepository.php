@@ -19,6 +19,28 @@ class RecetteRepository extends ServiceEntityRepository
         parent::__construct($registry, Recette::class);
     }
 
+    public function customFindByCriter($limit,$offset,$search)
+    {
+        return $this->createQueryBuilder('r')
+            ->where('r.nom LIKE :search')
+            ->setFirstResult( $offset )
+            ->setMaxResults($limit)
+            ->setParameter('search','%'.$search.'%')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function customFindByCriterCount($search)
+    {
+        return $this->createQueryBuilder('r')
+            ->where('r.nom LIKE :search')
+            ->setParameter('search','%'.$search.'%')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Recette[] Returns an array of Recette objects
     //  */

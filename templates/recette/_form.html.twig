@@ -1,4 +1,8 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<div class="form-group is-empty">
+	<label>{{ form_label(form.nom, 'Nom') }}</label>
+	{{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+</div>
+<button class="btn">{{ button_label|default('Save') }}</button>
+<a href="{{ path('recette_index') }}" class="btn btn-danger pull-right">Retourner à la liste</a>
 {{ form_end(form) }}

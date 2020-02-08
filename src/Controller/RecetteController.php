@@ -9,12 +9,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
- * @Route("admin/recette")
+ * @Route("/admin/recette")
  */
 class RecetteController extends Controller
 {
+    public $menu = "recette";
     /**
      * @Route("/", name="recette_index", methods={"GET"})
      */
@@ -22,6 +24,7 @@ class RecetteController extends Controller
     {
         return $this->render('recette/index.html.twig', [
             'recettes' => $recetteRepository->findAll(),
+            'menu' => $this->menu
         ]);
     }
 
@@ -45,6 +48,7 @@ class RecetteController extends Controller
         return $this->render('recette/new.html.twig', [
             'recette' => $recette,
             'form' => $form->createView(),
+            'menu' => $this->menu
         ]);
     }
 
@@ -55,11 +59,12 @@ class RecetteController extends Controller
     {
         return $this->render('recette/show.html.twig', [
             'recette' => $recette,
+            'menu' => $this->menu
         ]);
     }
 
     /**
-     * @Route("/{id}/edit", name="recette_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="recette_edit", methods={"GET","POST"} ,options= { "expose" = true })
      */
     public function edit(Request $request, Recette $recette): Response
     {
@@ -75,20 +80,49 @@ class RecetteController extends Controller
         return $this->render('recette/edit.html.twig', [
             'recette' => $recette,
             'form' => $form->createView(),
+            'menu' => $this->menu
         ]);
     }
 
     /**
-     * @Route("/{id}", name="recette_delete", methods={"DELETE"})
+     * @Route("/delete/{id}", name="recette_delete", methods={"GET"},options = { "expose" = true })
      */
     public function delete(Request $request, Recette $recette): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$recette->getId(), $request->request->get('_token'))) {
+        if ($request->isXmlHttpRequest()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($recette);
             $entityManager->flush();
+            return new JsonResponse();
+        } else {
+            throw $this->createNotFoundException('Page not found');
         }
+    }
 
-        return $this->redirectToRoute('recette_index');
+    /**
+     * @Route("/json/data/{limit}/{offset}/{search}", name="recette_json", options = { "expose" = true })
+     */
+    public function ajaxGetRecette($limit, $offset, $search = '', RecetteRepository $recetteRepository, Request $request): Response
+    {
+        if ($request->isXmlHttpRequest()) {
+            $allRecette = $recetteRepository->customFindByCriter($limit, $offset, $search);
+            $numberOfAllRecette = count($recetteRepository->customFindByCriterCount($search));
+            foreach ($allRecette as $key => $value) {
+                $data[] = [
+                    'id' => $value->getId(),
+                    'nom' => $value->getNom(),
+                ];
+            }
+            if (isset($data)) {
+                $output['count'] = $numberOfAllRecette;
+                $output['data'] = $data;
+            } else {
+                $output['count'] = [];
+                $output['data'] = [];
+            }
+            return new JsonResponse($output);
+        } else {
+            throw $this->createNotFoundException('Page not found');
+        }
     }
 }

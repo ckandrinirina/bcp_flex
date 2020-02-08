@@ -1,11 +1,30 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin_base.html.twig' %}
 
-{% block title %}New Recette{% endblock %}
+{% block title %}Recette creer
+{% endblock %}
+
+{% block content_header %}
+	<h1>
+		Recette
+	</h1>
+	<ol class="breadcrumb">
+		<li>
+			<a href="#">
+				<i class="fa fa-dashboard"></i>
+				Creer</a>
+		</li>
+	</ol>
+{% endblock %}
 
 {% block body %}
+	<div class="box">
+		<div class="box-header">
+			<h3 class="box-title">Création d'un recette</h3>
+		</div>
+		<!-- /.box-header -->
+		<div class="box-body">
+            {{ include('recette/_form.html.twig', {'button_label': 'Creer'}) }}
+		</div>
+	</div>
     <h1>Create new Recette</h1>
-
-    {{ include('recette/_form.html.twig') }}
-
-    <a href="{{ path('recette_index') }}">back to list</a>
 {% endblock %}

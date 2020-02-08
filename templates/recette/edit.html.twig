@@ -1,13 +1,29 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin_base.html.twig' %}
 
-{% block title %}Edit Recette{% endblock %}
+{% block title %}Recette modifier
+{% endblock %}
+
+{% block content_header %}
+	<h1>
+		Recette
+	</h1>
+	<ol class="breadcrumb">
+		<li>
+			<a href="#">
+				<i class="fa fa-dashboard"></i>
+				Modifier</a>
+		</li>
+	</ol>
+{% endblock %}
 
 {% block body %}
-    <h1>Edit Recette</h1>
-
-    {{ include('recette/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('recette_index') }}">back to list</a>
-
-    {{ include('recette/_delete_form.html.twig') }}
+	<div class="box">
+		<div class="box-header">
+			<h3 class="box-title">Modification d'un recette</h3>
+		</div>
+		<!-- /.box-header -->
+		<div class="box-body">
+			{{ include('recette/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+		</div>
+	</div>
 {% endblock %}

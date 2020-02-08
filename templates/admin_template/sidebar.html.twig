@@ -12,6 +12,12 @@
                     <span>Evenement</span>
                 </a>
             </li>
+            <li {% if menu == 'recette' %}class="active"{% endif %}>
+                <a href="{{path('recette_index')}}">
+                    <i class="fa fa-link"></i>
+                    <span>Recette</span>
+                </a>
+            </li>
             <li>
                 <a href="#">
                     <i class="fa fa-link"></i>
