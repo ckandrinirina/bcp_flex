@@ -17,14 +17,14 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class EventController extends Controller
 {
-    public $page = 'event';
+    public $menu = 'event';
     /**
      * @Route("/", name="event_index", methods={"GET"})
      */
     public function index(EventRepository $eventRepository): Response
     {
         return $this->render('event/index.html.twig', [
-            'events' => $eventRepository->findAll(),
+            'menu'=>$this->menu
         ]);
     }
 
@@ -48,6 +48,7 @@ class EventController extends Controller
         return $this->render('event/new.html.twig', [
             'event' => $event,
             'form' => $form->createView(),
+            'menu'=>$this->menu
         ]);
     }
 
@@ -58,6 +59,7 @@ class EventController extends Controller
     {
         return $this->render('event/show.html.twig', [
             'event' => $event,
+            'menu'=>$this->menu
         ]);
     }
 
@@ -78,6 +80,7 @@ class EventController extends Controller
         return $this->render('event/edit.html.twig', [
             'event' => $event,
             'form' => $form->createView(),
+            'menu'=>$this->menu
         ]);
     }
 

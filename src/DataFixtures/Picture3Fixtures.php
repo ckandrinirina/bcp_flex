@@ -8,7 +8,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 
-class PictureFixtures extends Fixture implements OrderedFixtureInterface
+class Picture3Fixtures extends Fixture implements OrderedFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
@@ -26,6 +26,6 @@ class PictureFixtures extends Fixture implements OrderedFixtureInterface
     }
     public function getOrder()
     {
-        return 1;
+        return 3;
     }
 }

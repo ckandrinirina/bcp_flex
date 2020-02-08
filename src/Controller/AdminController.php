@@ -7,6 +7,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AdminController extends Controller
 {
+    public $menu = 'dashboard';
     /**
      * @Route("/admin", name="admin")
      */
@@ -14,6 +15,7 @@ class AdminController extends Controller
     {
         return $this->render('admin/index.html.twig', [
             'controller_name' => 'AdminController',
+            'menu'=>$this->menu
         ]);
     }
 }

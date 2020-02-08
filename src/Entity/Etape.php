@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EtapeRepository")
@@ -23,6 +24,7 @@ class Etape
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Recette", inversedBy="etapes")
+     * @JoinColumn(onDelete="CASCADE")
      */
     private $recette;
 

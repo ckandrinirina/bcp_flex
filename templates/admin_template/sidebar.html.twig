@@ -6,7 +6,7 @@
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">MENU</li>
             <!-- Optionally, you can add icons to the links -->
-            <li class="active">
+            <li {% if menu == 'event' %}class="active"{% endif %}>
                 <a href="{{path('event_index')}}">
                     <i class="fa fa-link"></i>
                     <span>Evenement</span>

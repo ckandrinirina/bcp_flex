@@ -2,25 +2,20 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Event;
-use App\Entity\Picture;
-use DateTime;
+use App\Entity\Recette;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 
-class EventFixtures extends Fixture implements OrderedFixtureInterface
+class Recette2Fixtures extends Fixture implements OrderedFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
         for($i=0;$i<20;$i++)
         {
-            $event = new Event();
-            $event->setNom('nom_'.$i);
-            $event->setPresentation('presentation_'.$i);
-            $event->setDate(new DateTime());
-            $event->setPlace('place_'.$i);
-            $manager->persist($event);
+            $recette = new Recette();
+            $recette->setNom('nom_'.$i);
+            $manager->persist($recette);
         }
 
         $manager->flush();
