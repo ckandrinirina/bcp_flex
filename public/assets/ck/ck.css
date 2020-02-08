@@ -4,3 +4,7 @@
 .actionTable{
     width:150px !important
 }
+
+.search-block{
+    display:flex;
+}

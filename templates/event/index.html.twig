@@ -24,6 +24,10 @@
 		</div>
 		<!-- /.box-header -->
 		<div class="box-body">
+			<div class="form-group col-md-6 search-block">
+				<input type="text" class="form-control search" placeholder="Rechercher ...">
+				<button class="btn btn-default doSearch"><i class="fa fa-search"></i></button>
+			</div>
 			<table class="table table-bordered table-striped" id="datatable">
 				<thead>
 					<tr>
@@ -36,8 +40,12 @@
 				</thead>
 			</table>
 			<div class="pull-right">
-				<button class="btn btn-default previous"><i class="fa fa-reply"></i></button>
-				<button class="btn btn-default next"><i class="fa fa-share"></i></button>
+				<button class="btn btn-default previous">
+					<i class="fa fa-reply"></i>
+				</button>
+				<button class="btn btn-default next">
+					<i class="fa fa-share"></i>
+				</button>
 			</div>
 		</div>
 	</div>
@@ -45,5 +53,6 @@
 {% endblock %}
 
 {% block script %}
+	<script src="{{asset('assets/ck/ckdatatable.js')}}"></script>
 	<script src="{{asset('assets/data/controller/eventCtrl.js')}}"></script>
 {% endblock %}
