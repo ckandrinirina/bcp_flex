@@ -1,10 +1,6 @@
 url = 'event_json';
 urlDel = 'event_delete'
 urlEdit = 'event_edit'
-
-const $datatable = $('#datatable');
-limit = 5;
-offset = 0;
 columns = [{
         data: 'nom'
     },
@@ -27,6 +23,11 @@ $(document).ready(function () {
     pagination();
     initAction();
 });
+
+//=============================================ck datatable//
+const $datatable = $('#datatable');
+limit = 5;
+offset = 0;
 
 function initAction() {
     $datatable.on('click', '.deleteAction', function () {
