@@ -1,11 +1,34 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin_base.html.twig' %}
 
-{% block title %}New Event{% endblock %}
+{% block title %}Event creer
+{% endblock %}
+
+{% block content_header %}
+	<h1>
+		Evenement
+	</h1>
+	<ol class="breadcrumb">
+		<li>
+			<a href="#">
+				<i class="fa fa-dashboard"></i>
+				Creer</a>
+		</li>
+	</ol>
+{% endblock %}
 
 {% block body %}
-    <h1>Create new Event</h1>
-
-    {{ include('event/_form.html.twig') }}
-
-    <a href="{{ path('event_index') }}">back to list</a>
+	<div class="box">
+		<div class="box-header">
+			<h3 class="box-title">Création d'un évenement</h3>
+		</div>
+		<!-- /.box-header -->
+		<div class="box-body">
+			{{ include('event/_form.html.twig', {'button_label': 'Creer'}) }}
+		</div>
+	</div>
+{% endblock %}
+{% block script %}
+	<script>
+		$( '.js-datepicker' ).datepicker( { format: 'yyyy-mm-dd', autoclose: true } )
+	</script>
 {% endblock %}
