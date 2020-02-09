@@ -17,6 +17,10 @@ function initAction() {
 
     $('.search').keyup(function () { 
         search = $(this).val();
+        if(search == ''){
+            table.destroy();
+            initTable();
+        }
     });
 }
 
