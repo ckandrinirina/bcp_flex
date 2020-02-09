@@ -1,4 +1,40 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<div class="form-group is-empty">
+	<label>{{ form_label(form.nom, 'Nom') }}</label>
+	{{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+</div>
+<div class="form-group is-empty">
+	<label>{{ form_label(form.adress, 'Adresse') }}</label>
+	{{ form_widget(form.adress, {'attr': {'class': 'form-control'}}) }}
+</div>
+<div class="form-group is-empty">
+	<label>{{ form_label(form.tel_fixe, 'Tel fixe') }}</label>
+	{{ form_widget(form.tel_fixe, {'attr': {'class': 'form-control'}}) }}
+</div>
+<div class="form-group is-empty">
+	<label>{{ form_label(form.tel_autre, 'Tel autres') }}</label>
+	{{ form_widget(form.tel_autre, {'attr': {'class': 'form-control'}}) }}
+</div>
+<div class="form-group is-empty">
+	<label>{{ form_label(form.email, 'Adresse E-mail') }}</label>
+	{{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+</div>
+<div class="form-group is-empty">
+	<label>{{ form_label(form.site, 'Site web') }}</label>
+	{{ form_widget(form.site, {'attr': {'class': 'form-control'}}) }}
+</div>
+<div class="form-group is-empty">
+	<label>{{ form_label(form.speciality, 'Spécialité') }}</label>
+	{{ form_widget(form.speciality, {'attr': {'class': 'form-control'}}) }}
+</div>
+<div class="form-group is-empty">
+	<label>{{ form_label(form.price, 'Prix') }}</label>
+	{{ form_widget(form.price, {'attr': {'class': 'form-control'}}) }}
+</div>
+<div class="form-group is-empty">
+	<label>{{ form_label(form.description, 'Description') }}</label>
+	{{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+</div>
+<button class="btn btn-default">{{ button_label|default('Save') }}</button>
+<a href="{{ path('restaurant_index') }}" class="btn btn-danger pull-right">Retourner à la liste</a>
 {{ form_end(form) }}

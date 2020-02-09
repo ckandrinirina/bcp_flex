@@ -21,7 +21,6 @@ class RestaurantType extends AbstractType
             ->add('speciality')
             ->add('price')
             ->add('description')
-            ->add('viewers')
         ;
     }
 

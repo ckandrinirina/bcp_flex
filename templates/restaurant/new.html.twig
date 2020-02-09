@@ -1,11 +1,29 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin_base.html.twig' %}
 
-{% block title %}New Restaurant{% endblock %}
+{% block title %}Restaurant creer
+{% endblock %}
+
+{% block content_header %}
+	<h1>
+		Restaurant
+	</h1>
+	<ol class="breadcrumb">
+		<li>
+			<a href="#">
+				<i class="fa fa-dashboard"></i>
+				Creer</a>
+		</li>
+	</ol>
+{% endblock %}
 
 {% block body %}
-    <h1>Create new Restaurant</h1>
-
-    {{ include('restaurant/_form.html.twig') }}
-
-    <a href="{{ path('restaurant_index') }}">back to list</a>
+	<div class="box">
+		<div class="box-header">
+			<h3 class="box-title">Création d'un évenement</h3>
+		</div>
+		<!-- /.box-header -->
+		<div class="box-body">
+            {{ include('restaurant/_form.html.twig' , {'button_label': 'Creer'}) }}
+		</div>
+	</div>
 {% endblock %}
