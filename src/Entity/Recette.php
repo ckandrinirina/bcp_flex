@@ -24,7 +24,7 @@ class Recette
     private $nom;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Etape", mappedBy="recette")
+     * @ORM\Column(type="text")
      */
     private $etapes;
 
@@ -35,7 +35,6 @@ class Recette
 
     public function __construct()
     {
-        $this->etapes = new ArrayCollection();
         $this->pictures = new ArrayCollection();
     }
 
@@ -56,46 +55,27 @@ class Recette
         return $this;
     }
 
-    /**
-     * @return Collection|etape[]
-     */
-    public function getEtapes(): Collection
+    public function getEtapes(): ?string
     {
         return $this->etapes;
     }
 
-    public function addEtape(etape $etape): self
+    public function setEtapes(string $etapes): self
     {
-        if (!$this->etapes->contains($etape)) {
-            $this->etapes[] = $etape;
-            $etape->setRecette($this);
-        }
-
-        return $this;
-    }
-
-    public function removeEtape(etape $etape): self
-    {
-        if ($this->etapes->contains($etape)) {
-            $this->etapes->removeElement($etape);
-            // set the owning side to null (unless already changed)
-            if ($etape->getRecette() === $this) {
-                $etape->setRecette(null);
-            }
-        }
+        $this->etapes = $etapes;
 
         return $this;
     }
 
     /**
-     * @return Collection|picture[]
+     * @return Collection|Picture[]
      */
     public function getPictures(): Collection
     {
         return $this->pictures;
     }
 
-    public function addPicture(picture $picture): self
+    public function addPicture(Picture $picture): self
     {
         if (!$this->pictures->contains($picture)) {
             $this->pictures[] = $picture;
@@ -105,7 +85,7 @@ class Recette
         return $this;
     }
 
-    public function removePicture(picture $picture): self
+    public function removePicture(Picture $picture): self
     {
         if ($this->pictures->contains($picture)) {
             $this->pictures->removeElement($picture);

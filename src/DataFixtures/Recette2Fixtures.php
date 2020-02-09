@@ -15,6 +15,7 @@ class Recette2Fixtures extends Fixture implements OrderedFixtureInterface
         {
             $recette = new Recette();
             $recette->setNom('nom_'.$i);
+            $recette->setEtapes('etapes_'.$i);
             $manager->persist($recette);
         }
 

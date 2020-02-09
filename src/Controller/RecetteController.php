@@ -111,6 +111,7 @@ class RecetteController extends Controller
                 $data[] = [
                     'id' => $value->getId(),
                     'nom' => $value->getNom(),
+                    'etapes' => $value->getEtapes(),
                 ];
             }
             if (isset($data)) {
