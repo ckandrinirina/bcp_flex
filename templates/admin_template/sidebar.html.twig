@@ -18,13 +18,13 @@
                     <span>Recette</span>
                 </a>
             </li>
-            <li>
-                <a href="#">
+            <li {% if menu == 'restaurant' %}class="active"{% endif %}>
+                <a href="{{path('restaurant_index')}}">
                     <i class="fa fa-link"></i>
-                    <span>Another Link</span>
+                    <span>Restaurant</span>
                 </a>
             </li>
-            <li class="treeview">
+            {# <li class="treeview">
                 <a href="#">
                     <i class="fa fa-link"></i>
                     <span>Multilevel</span>
@@ -40,7 +40,7 @@
                         <a href="#">Link in level 2</a>
                     </li>
                 </ul>
-            </li>
+            </li> #}
         </ul>
         <!-- /.sidebar-menu -->
     </section>

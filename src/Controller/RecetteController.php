@@ -23,7 +23,6 @@ class RecetteController extends Controller
     public function index(RecetteRepository $recetteRepository): Response
     {
         return $this->render('recette/index.html.twig', [
-            'recettes' => $recetteRepository->findAll(),
             'menu' => $this->menu
         ]);
     }

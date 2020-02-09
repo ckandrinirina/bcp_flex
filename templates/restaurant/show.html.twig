@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Restaurant{% endblock %}
+
+{% block body %}
+    <h1>Restaurant</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ restaurant.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ restaurant.nom }}</td>
+            </tr>
+            <tr>
+                <th>Adress</th>
+                <td>{{ restaurant.adress }}</td>
+            </tr>
+            <tr>
+                <th>Tel_fixe</th>
+                <td>{{ restaurant.telFixe }}</td>
+            </tr>
+            <tr>
+                <th>Tel_autre</th>
+                <td>{{ restaurant.telAutre }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ restaurant.email }}</td>
+            </tr>
+            <tr>
+                <th>Site</th>
+                <td>{{ restaurant.site }}</td>
+            </tr>
+            <tr>
+                <th>Speciality</th>
+                <td>{{ restaurant.speciality }}</td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td>{{ restaurant.price }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ restaurant.description }}</td>
+            </tr>
+            <tr>
+                <th>Viewers</th>
+                <td>{{ restaurant.viewers }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('restaurant_index') }}">back to list</a>
+
+    <a href="{{ path('restaurant_edit', {'id': restaurant.id}) }}">edit</a>
+
+    {{ include('restaurant/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,114 @@
+{% extends 'admin_base.html.twig' %}
+
+{% block title %}Restaurant index
+{% endblock %}
+
+{% block content_header %}
+	<h1>
+		Restaurant
+	</h1>
+	<ol class="breadcrumb">
+		<li>
+			<a href="#">
+				<i class="fa fa-dashboard"></i>
+				liste</a>
+		</li>
+	</ol>
+{% endblock %}
+
+{% block body %}
+	<div class="box">
+		<div class="box-header">
+			<h3 class="box-title">Liste des restaurants</h3>
+		</div>
+		<!-- /.box-header -->
+		<div class="box-body">
+			<div class="row">
+				<div class="form-group col-md-4 search-block">
+					<input type="text" class="form-control search" placeholder="Rechercher ...">
+					<button class="btn btn-default doSearch">
+						<i class="fa fa-search"></i>
+					</button>
+				</div>
+				<div class="form-group col-md-2 col-md-offset-6 pull-right">
+					<a href="{{ path('restaurant_new') }}" class="btn btn-default">Creer</a>
+				</div>
+			</div>
+			<table class="table table-bordered table-striped" id="datatable">
+				<thead>
+					<tr>
+						<th>Nom</th>
+						<th>Adresse</th>
+						<th>Tel fixe</th>
+						<th>Tel autre</th>
+						<th>Email</th>
+						<th>Site</th>
+						<th>Speciality</th>
+						<th>Price</th>
+						<th>Description</th>
+						<th>Viewers</th>
+						<th class="actionTable">Actions</th>
+					</tr>
+				</thead>
+			</table>
+			<div class="pull-right">
+				<button class="btn btn-default previous">
+					<i class="fa fa-reply"></i>
+				</button>
+				<button class="btn btn-default next">
+					<i class="fa fa-share"></i>
+				</button>
+			</div>
+		</div>
+	</div>
+	<a href="{{ path('restaurant_new') }}">Create new</a>
+{% endblock %}
+
+{% block script %}
+    <script>
+    url = 'restaurant_json';
+    urlDel = 'restaurant_delete'
+    urlEdit = 'restaurant_edit'
+    columns = [{
+            data: 'nom'
+        },
+        {
+            data: 'adresse'
+        },
+        {
+            data: 'description'
+        },
+        {
+            data: 'Email'
+        },
+        {
+            data: 'Price'
+        },
+        {
+            data: 'Site'
+        },
+        {
+            data: 'Specialite'
+        },
+        {
+            data: 'Tel autres'
+        },
+        {
+            data: 'Tel Fixe'
+        },
+        {
+            data: 'Visibilite'
+        },
+        {
+            data: 'actions'
+        }
+    ]
+
+    $(document).ready(function () {
+        initTable();
+        pagination();
+        initAction();
+    });
+    </script>
+	<script src="{{asset('assets/ck/ckdatatable.js')}}"></script>
+{% endblock %}
