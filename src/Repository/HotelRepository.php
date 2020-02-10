@@ -19,6 +19,44 @@ class HotelRepository extends ServiceEntityRepository
         parent::__construct($registry, Restaurant::class);
     }
 
+    public function customFindByCriter($limit,$offset,$search)
+    {
+        return $this->createQueryBuilder('e')
+            ->where('e.nom LIKE :search')
+            ->orWhere('e.adress LIKE :search')
+            ->orWhere('e.tel_fixe LIKE :search')
+            ->orWhere('e.tel_autre LIKE :search')
+            ->orWhere('e.email LIKE :search')
+            ->orWhere('e.site LIKE :search')
+            ->orWhere('e.speciality LIKE :search')
+            ->orWhere('e.price LIKE :search')
+            ->orWhere('e.description LIKE :search')
+            ->setFirstResult( $offset )
+            ->setMaxResults($limit)
+            ->setParameter('search','%'.$search.'%')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function customFindByCriterCount($search)
+    {
+        return $this->createQueryBuilder('e')
+            ->where('e.nom LIKE :search')
+            ->orWhere('e.adress LIKE :search')
+            ->orWhere('e.tel_fixe LIKE :search')
+            ->orWhere('e.tel_autre LIKE :search')
+            ->orWhere('e.email LIKE :search')
+            ->orWhere('e.site LIKE :search')
+            ->orWhere('e.speciality LIKE :search')
+            ->orWhere('e.price LIKE :search')
+            ->orWhere('e.description LIKE :search')
+            ->setParameter('search','%'.$search.'%')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Restaurant[] Returns an array of Restaurant objects
     //  */

@@ -98,7 +98,7 @@ class RestaurantController extends Controller
         }
     }
 
-        /**
+    /**
      * @Route("/json/data/{limit}/{offset}/{search}", name="restaurant_json", options = { "expose" = true })
      */
     public function ajaxGetEvent($limit, $offset, $search = '', RestaurantRepository $restaurantRepository, Request $request): Response

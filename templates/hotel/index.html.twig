@@ -1,11 +1,11 @@
 {% extends 'admin_base.html.twig' %}
 
-{% block title %}Restaurant index
+{% block title %}Hotel index
 {% endblock %}
 
 {% block content_header %}
 	<h1>
-		Restaurant
+		Hotel
 	</h1>
 	<ol class="breadcrumb">
 		<li>
@@ -17,9 +17,9 @@
 {% endblock %}
 
 {% block body %}
-	<div class="box">
+    <div class="box">
 		<div class="box-header">
-			<h3 class="box-title">Liste des restaurants</h3>
+			<h3 class="box-title">Liste des hotels</h3>
 		</div>
 		<!-- /.box-header -->
 		<div class="box-body">
@@ -31,7 +31,7 @@
 					</button>
 				</div>
 				<div class="form-group col-md-2 col-md-offset-6 pull-right">
-					<a href="{{ path('restaurant_new') }}" class="btn btn-default">Creer</a>
+					<a href="{{ path('hotel_new') }}" class="btn btn-default">Creer</a>
 				</div>
 			</div>
 			<table class="table table-bordered table-striped" id="datatable">
@@ -65,9 +65,9 @@
 
 {% block script %}
     <script>
-    url = 'restaurant_json';
-    urlDel = 'restaurant_delete'
-    urlEdit = 'restaurant_edit'
+    url = 'hotel_json';
+    urlDel = 'hotel_delete'
+    urlEdit = 'hotel_edit'
     columns = [{
             data: 'nom'
         },

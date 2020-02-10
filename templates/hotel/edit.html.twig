@@ -1,0 +1,29 @@
+{% extends 'admin_base.html.twig' %}
+
+{% block title %}Hotel modifier
+{% endblock %}
+
+{% block content_header %}
+	<h1>
+		Hotel
+	</h1>
+	<ol class="breadcrumb">
+		<li>
+			<a href="#">
+				<i class="fa fa-dashboard"></i>
+				Modifier</a>
+		</li>
+	</ol>
+{% endblock %}
+
+{% block body %}
+	<div class="box">
+		<div class="box-header">
+			<h3 class="box-title">Modification d'un hotel</h3>
+		</div>
+		<!-- /.box-header -->
+		<div class="box-body">
+            {{ include('hotel/_form.html.twig' , {'button_label': 'Mise à jour'}) }}
+		</div>
+	</div>
+{% endblock %}
