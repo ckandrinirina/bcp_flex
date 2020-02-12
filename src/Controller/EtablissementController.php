@@ -8,17 +8,18 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Etablissement;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use App\Repository\HotelRepository;
+use App\Manager\ServiceManager;
 /**
  * Etablissement controller.
  *
- * @Route("admin/etablissement")
+ * @Route("etablissement")
  */
 class EtablissementController extends Controller
 {
     private $oManager;
     
-    public function __construct() {
-        $this->oManager = $this->container->get('service.manager');
+    public function __construct(ServiceManager $serviceManager) {
+        $this->oManager = $serviceManager;
     }
     
     /**
