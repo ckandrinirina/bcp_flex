@@ -132,8 +132,8 @@ class EtablissementController extends Controller
      */
     public function doSearch($critere='',$proximite='',HotelRepository $hotelRepository)
     {
-        // $hotel = $hotelRepository->findSoundex($critere);
-        // dump($hotel);die();
+        $hotel = $hotelRepository->findSoundex($critere);
+        dump($hotel);die();
         return $this->render('Etablissement/suggestion.html.twig');
     }
 }
