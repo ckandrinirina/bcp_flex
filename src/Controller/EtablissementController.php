@@ -7,7 +7,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Etablissement;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
+use App\Repository\HotelRepository;
 /**
  * Etablissement controller.
  *
@@ -126,4 +126,13 @@ class EtablissementController extends Controller
         return $this->redirectToRoute('etablissement_index');
     }
     
+    /**
+     * @Route("/search/{critere}/{proximite}", name="search_block",methods={"GET"},  options = { "expose" = true })
+     */
+    public function doSearch($critere='',$proximite='',HotelRepository $hotelRepository)
+    {
+        // $hotel = $hotelRepository->findSoundex($critere);
+        // dump($hotel);die();
+        return $this->render('Etablissement/suggestion.html.twig');
+    }
 }
