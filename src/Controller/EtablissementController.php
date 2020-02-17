@@ -9,6 +9,11 @@ use App\Entity\Etablissement;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use App\Repository\HotelRepository;
 use App\Manager\ServiceManager;
+use App\Repository\EventRepository;
+use App\Repository\RecetteRepository;
+use App\Repository\RestaurantRepository;
+use Symfony\Bundle\MakerBundle\EventRegistry;
+
 /**
  * Etablissement controller.
  *
@@ -130,10 +135,13 @@ class EtablissementController extends Controller
     /**
      * @Route("/search/{critere}/{proximite}", name="search_block",methods={"GET"},  options = { "expose" = true })
      */
-    public function doSearch($critere='',$proximite='',HotelRepository $hotelRepository)
+    public function doSearch($critere='',$proximite='',HotelRepository $hotelRepository,RestaurantRepository $restaurantRepository,RecetteRepository $recetteRepository,EventRepository $eventRepository)
     {
         $hotel = $hotelRepository->findSoundex($critere);
-        dump($hotel);die();
+        $restaurant = $restaurantRepository->findSoundex($critere);
+        $recette = $recetteRepository->findSoundex($critere);
+        $event = $eventRepository->findSoundex($critere);
+        dump($hotel,$restaurant,$recette,$event);
         return $this->render('Etablissement/suggestion.html.twig');
     }
 }
