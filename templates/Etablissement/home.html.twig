@@ -40,24 +40,7 @@
 	<!-- Banner -->
 	<section id="banner">
 		<div class="inner">
-			<div class="s01">
-				<form>
-					<fieldset>
-						<legend>Faite votre recherche</legend>
-					</fieldset>
-					<div class="inner-form">
-						<div class="input-field first-wrap">
-							<input id="search" type="text" class="black" placeholder="Vous chercher quoi?" />
-						</div>
-						<div class="input-field second-wrap">
-							<input id="location" class="black" type="text" placeholder="A proximite de" />
-						</div>
-						<div class="input-field third-wrap">
-							<button class="btn-search btn btn-default" id="btn-search" type="button">Rechercher</button>
-						</div>
-					</div>
-				</form>
-			</div>
+			{% include "default/searchBar.html.twig" %}
 		</div>
 		<a href="#one" class="more scrolly">Learn More</a>
 	</section>
@@ -222,7 +205,7 @@
 {% endblock%}
 
 {% block ckscript %}
-<script src="assets/ck/home/ckHome.js"></script>
+<script src="{{asset('assets/ck/home/ckHome.js')}}"></script>
 {% endblock %}
 
 {#% block javascript %}

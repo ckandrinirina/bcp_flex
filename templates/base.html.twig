@@ -15,32 +15,32 @@
 
 <!DOCTYPE html>
 <html lang="fr" class="no-js">
-    {% block head %}
-        {% block stylesheets %}
-            <head>
-                <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-                <meta name="author" content="colorlib">
-                <meta name="description" content="">
-                <meta name="keywords" content="">
-                <meta charset="UTF-8">
+    {% block stylesheets %}
+        <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="author" content="colorlib">
+            <meta name="description" content="">
+            <meta name="keywords" content="">
+            <meta charset="UTF-8">
 
-                <link rel="shortcut icon" href="img/fav.png">
-                <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet"> 
-                <link rel="stylesheet" href="{{ asset('assets/css/linearicons.css') }}">
-                <link rel="stylesheet" href="{{ asset('assets/css/font-awesome.min.css') }}">
-                <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
-                <link rel="stylesheet" href="{{ asset('assets/css/magnific-popup.css') }}">
-                <link rel="stylesheet" href="{{ asset('assets/css/jquery-ui.css') }}">				
-                <link rel="stylesheet" href="{{ asset('assets/css/nice-select.css') }}">							
-                <link rel="stylesheet" href="{{ asset('assets/css/animate.min.css') }}">
-                <link rel="stylesheet" href="{{ asset('assets/css/owl.carousel.css') }}">				
-                <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
-                {# <link rel="stylesheet" href="{{ asset('assets/home/css/jo_navbar.css') }}"> #}
-            </head>
-        {% endblock %}
-        {% block title %}
-            <title>c-bcp.cm</title>
-        {% endblock %}
+            <link rel="shortcut icon" href="img/fav.png">
+            <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet"> 
+            <link rel="stylesheet" href="{{ asset('assets/css/linearicons.css') }}">
+            <link rel="stylesheet" href="{{ asset('assets/css/font-awesome.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.css') }}">
+            <link rel="stylesheet" href="{{ asset('assets/css/magnific-popup.css') }}">
+            <link rel="stylesheet" href="{{ asset('assets/css/jquery-ui.css') }}">				
+            <link rel="stylesheet" href="{{ asset('assets/css/nice-select.css') }}">							
+            <link rel="stylesheet" href="{{ asset('assets/css/animate.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('assets/css/owl.carousel.css') }}">				
+            <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
+            <link rel="stylesheet" href="{{ asset('assets/ck/cksearch.css') }}">
+            {# <link rel="stylesheet" href="{{ asset('assets/home/css/jo_navbar.css') }}"> #}
+        </head>
+    {% endblock %}
+    {% block ckcss %}{% endblock %}
+    {% block title %}
+        <title>c-bcp.cm</title>
     {% endblock %}
     <body class="landing is-preload">
 

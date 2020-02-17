@@ -141,7 +141,11 @@ class EtablissementController extends Controller
         $restaurant = $restaurantRepository->findSoundex($critere);
         $recette = $recetteRepository->findSoundex($critere);
         $event = $eventRepository->findSoundex($critere);
-        dump($hotel,$restaurant,$recette,$event);
-        return $this->render('Etablissement/suggestion.html.twig');
+        return $this->render('Etablissement/suggestion.html.twig',[
+            'hotel' => $hotel,
+            'restaurant' => $restaurant,
+            'recette' => $recette,
+            'event' => $event
+        ]);
     }
 }

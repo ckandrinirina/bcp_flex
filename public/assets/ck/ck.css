@@ -8,3 +8,20 @@
 .search-block{
     display:flex;
 }
+
+.inner-form {
+    height: 10px;
+    padding: 28px !important;
+}
+
+.s01 {
+    min-height: 0px !important;
+}
+
+.s01 form{
+    height: 0px !important;
+}
+
+.input-field{
+    height: 40px !important;
+}
