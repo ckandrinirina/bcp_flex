@@ -1,0 +1,49 @@
+<section class="about-banner relative">
+	<div class="row" style="margin-top:-15px">
+		<div class="s01 col-md-8 col-sm-12">
+			<form>
+				<div class="inner-form" style="display:flex">
+					<div class="input-field">
+						<input id="search" type="text" class="black" placeholder="Vous chercher quoi?"/>
+					</div>
+					<div class="input-field">
+						<input id="location" class="black" type="text" placeholder="A proximite de"/>
+					</div>
+					<div class="input-field third-wrap">
+						<button class="btn-search btn btn-default" id="btn-search" type="button">Rechercher</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="btn-group col-md-4 col-sm-12" role="group" style="margin-top:23px;">
+			<ul class="nav-menu pull-right" style="background-color:#7044028a;">
+				{% if is_granted('ROLE_ADMIN') %}
+					<li>
+						<a href="{{path('admin')}}">Admin</a>
+					</li>
+				{% endif %}
+				{% if is_granted('ROLE_USER') %}
+					<li>
+						<a href="{{path('fos_user_security_logout')}}" style="font-size:large">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a>
+					</li>
+				{% else %}
+					<li>
+						<a href="{{path('fos_user_security_login')}}" style="font-size:large">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+					</li>
+					<li>
+						<a href="{{path('fos_user_registration_register')}}" style="font-size:large">{{ 'registration.submit'|trans({}, 'FOSUserBundle') }}</a>
+					</li>
+				{% endif %}
+			</ul>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row d-flex align-items-center justify-content-center">
+			<div class="about-content col-lg-12">
+				<h1 class="text-white">
+					Resultat de la recherche
+				</h1>
+			</div>
+		</div>
+	</div>
+</section>

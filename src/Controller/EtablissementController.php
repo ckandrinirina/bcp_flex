@@ -148,4 +148,18 @@ class EtablissementController extends Controller
             'event' => $event
         ]);
     }
+
+    /**
+     * @Route("/result/view/{type}/{id}",name="search_view",methods={"GET"})
+     */
+    public function searchResult($type,$id,HotelRepository $hotelRepository)
+    {
+        if($type == 'hotel'){
+            $data = $hotelRepository->find($id);
+            dump($data);die();
+        }
+        return $this->render('Etablissement/viewContent.html.twig',[
+            'data'=>$data
+        ]);
+    }
 }
