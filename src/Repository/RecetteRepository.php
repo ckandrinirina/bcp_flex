@@ -41,11 +41,13 @@ class RecetteRepository extends ServiceEntityRepository
         ;
     }
 
-    public function findSoundex($critere)
+    public function findSoundex($critere,$offset)
     {
         return $this->createQueryBuilder('e')
         ->where("SOUNDEX(e.nom) LIKE SOUNDEX(:search)")
         ->setParameter('search','%'.$critere.'%')
+        ->setFirstResult( $offset )
+        ->setMaxResults(5)
         ->getQuery()
         ->getResult();
     }

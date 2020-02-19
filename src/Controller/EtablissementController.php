@@ -133,19 +133,24 @@ class EtablissementController extends Controller
     }
     
     /**
-     * @Route("/search/{critere}/{proximite}", name="search_block",methods={"GET"},  options = { "expose" = true })
+     * @Route("/search/{page}/{type}/{critere}/{proximite}", name="search_block",methods={"GET"},  options = { "expose" = true })
      */
-    public function doSearch($critere='',$proximite='',HotelRepository $hotelRepository,RestaurantRepository $restaurantRepository,RecetteRepository $recetteRepository,EventRepository $eventRepository)
+    public function doSearch($page=0,$type,$critere='',$proximite='',HotelRepository $hotelRepository,RestaurantRepository $restaurantRepository,RecetteRepository $recetteRepository,EventRepository $eventRepository)
     {
-        $hotel = $hotelRepository->findSoundex($critere);
-        $restaurant = $restaurantRepository->findSoundex($critere);
-        $recette = $recetteRepository->findSoundex($critere);
-        $event = $eventRepository->findSoundex($critere);
+        if($type == 'hotel')
+            $data = $hotelRepository->findSoundex($critere,$page);
+        if($type == 'restaurant')
+            $data = $restaurantRepository->findSoundex($critere,$page);
+        if($type == 'recette')
+            $data = $recetteRepository->findSoundex($critere,$page);
+        if($type == 'event')
+            $data = $eventRepository->findSoundex($critere,$page);
         return $this->render('Etablissement/suggestion.html.twig',[
-            'hotel' => $hotel,
-            'restaurant' => $restaurant,
-            'recette' => $recette,
-            'event' => $event
+            'page' => $page,
+            'data' => $data,
+            'type' => $type,
+            'critere' => $critere,
+            'proximite' => $proximite
         ]);
     }
 
@@ -156,7 +161,6 @@ class EtablissementController extends Controller
     {
         if($type == 'hotel'){
             $data = $hotelRepository->find($id);
-            dump($data);die();
         }
         return $this->render('Etablissement/viewContent.html.twig',[
             'data'=>$data
