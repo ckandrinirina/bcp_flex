@@ -22,9 +22,11 @@ use Symfony\Bundle\MakerBundle\EventRegistry;
 class EtablissementController extends Controller
 {
     private $oManager;
+    private $em;
     
     public function __construct(ServiceManager $serviceManager) {
         $this->oManager = $serviceManager;
+        $this->em = $this->getDoctrine()->getManager();
     }
     
     /**
@@ -131,9 +133,11 @@ class EtablissementController extends Controller
         }
         return $this->redirectToRoute('etablissement_index');
     }
-    
+
+    //ck code===================================================================================
+
     /**
-     * @Route("/search/{page}/{type}/{critere}/{proximite}", name="search_block",methods={"GET"},  options = { "expose" = true })
+     * @Route("/searchcritere/{page}/{type}/{critere}/{proximite}", name="search_block",methods={"GET"},  options = { "expose" = true })
      */
     public function doSearch($page=0,$type,$critere='',$proximite='',HotelRepository $hotelRepository,RestaurantRepository $restaurantRepository,RecetteRepository $recetteRepository,EventRepository $eventRepository)
     {
@@ -155,15 +159,52 @@ class EtablissementController extends Controller
     }
 
     /**
+     * @Route("/searchdetail/{page}/{type}", name="search_detail",methods={"GET"},  options = { "expose" = true })
+     */
+    public function doSearchDetail($page=0,$type,HotelRepository $hotelRepository,RestaurantRepository $restaurantRepository,RecetteRepository $recetteRepository,EventRepository $eventRepository)
+    {
+        if($type == 'hotel'){
+            $data = $hotelRepository->findDetail($page);
+        }
+        if($type == 'restaurant'){
+            $data = $restaurantRepository->findDetail($page);
+        }
+        if($type == 'recette'){
+            $data = $recetteRepository->findDetail($page);
+        }
+        if($type == 'event'){
+            $data = $eventRepository->findDetail($page);
+        }
+        return $this->render('Etablissement/suggestionDetail.html.twig',[
+            'page' => $page,
+            'data' => $data,
+            'type' => $type,
+        ]);
+    }
+
+    /**
      * @Route("/result/view/{type}/{id}",name="search_view",methods={"GET"})
      */
-    public function searchResult($type,$id,HotelRepository $hotelRepository)
+    public function searchResult($type,$id,HotelRepository $hotelRepository,RestaurantRepository $restaurantRepository,EventRepository $eventRepository,RecetteRepository $recetteRepository)
     {
         if($type == 'hotel'){
             $data = $hotelRepository->find($id);
         }
+        if($type == 'restaurant'){
+            $data = $restaurantRepository->find($id);
+        }
+        if($type == 'event'){
+            $data = $eventRepository->find($id);
+        }
+        if($type == 'recette'){
+            $data = $recetteRepository->find($id);
+        }
+        $data->setViewers($data->getViewers()+1);
+        $this->em->persist($data);
+        $this->em->flush();
         return $this->render('Etablissement/viewContent.html.twig',[
-            'data'=>$data
+            'data'=>$data,
+            'type'=>$type
         ]);
     }
 }

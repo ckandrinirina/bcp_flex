@@ -56,6 +56,16 @@ class EventRepository extends ServiceEntityRepository
         ->getResult();
     }
 
+    public function findDetail($offset)
+    {
+        return $this->createQueryBuilder('e')
+        ->orderBy('e.viewers','DESC')
+        ->setFirstResult( $offset )
+        ->setMaxResults(5)
+        ->getQuery()
+        ->getResult();
+    }
+
     // /**
     //  * @return Event[] Returns an array of Event objects
     //  */

@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\Restaurant;
+use App\Entity\Hotel;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
@@ -16,7 +16,7 @@ class HotelRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Restaurant::class);
+        parent::__construct($registry, Hotel::class);
     }
 
     public function customFindByCriter($limit,$offset,$search)
@@ -62,6 +62,16 @@ class HotelRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('e')
         ->where("SOUNDEX(e.nom) LIKE SOUNDEX(:search)")
         ->setParameter('search','%'.$critere.'%')
+        ->setFirstResult( $offset )
+        ->setMaxResults(5)
+        ->getQuery()
+        ->getResult();
+    }
+
+    public function findDetail($offset)
+    {
+        return $this->createQueryBuilder('e')
+        ->orderBy('e.viewers','DESC')
         ->setFirstResult( $offset )
         ->setMaxResults(5)
         ->getQuery()

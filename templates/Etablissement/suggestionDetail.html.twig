@@ -1,0 +1,20 @@
+{% extends "base.html.twig" %}
+{% block ckcss %}
+	<link rel="stylesheet" href="{{ asset('assets/ck/ck.css') }}">
+	<link rel="stylesheet" href="{{ asset('assets/ck/cknavbar.css') }}">
+{% endblock %}
+
+{% block body %}
+	{% include "default/cknavbarppl.html.twig" %}
+	{% include "default/cknavbar.html.twig" %}
+	{% include "Etablissement/content/suggestionContentDetail.html.twig" %}
+	<h3><span class="clearfix borda"></span></h3>
+{% endblock %}
+
+{% block footer %}
+	{%include 'default/footer.html.twig'%}
+{% endblock %}
+
+{% block ckscript %}
+	<script src="{{asset('assets/ck/home/ckHome.js')}}"></script>
+{% endblock %}
