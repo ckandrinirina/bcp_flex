@@ -40,7 +40,7 @@ class Picture
     private $restaurant;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Hotel", inversedBy="pictures")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Hotel", inversedBy="pictures",cascade={"persist"})
      * @JoinColumn(onDelete="CASCADE")
      */
     private $hotel;

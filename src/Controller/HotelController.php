@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Hotel;
+use App\Entity\Picture;
 use App\Form\HotelType;
 use App\Repository\HotelRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -34,10 +35,36 @@ class HotelController extends Controller
     {
         $hotel = new Hotel();
         $form = $this->createForm(HotelType::class, $hotel);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
+        // $form->handleRequest($request);
+        
+        if (array_key_exists('hotel',$request->request->all())) {
             $entityManager = $this->getDoctrine()->getManager();
+            $data_hotel = $request->request->all()['hotel'];
+            $data_picture = $request->files->all()['hotel']['pictures'];
+
+            $hotel->setNom($data_hotel['nom']);
+            $hotel->setAdress($data_hotel['adress']);
+            $hotel->setTelFixe($data_hotel['tel_fixe']);
+            $hotel->setTelAutre($data_hotel['tel_autre']);
+            $hotel->setEmail($data_hotel['email']);
+            $hotel->setSite($data_hotel['site']);
+            $hotel->setSpeciality($data_hotel['speciality']);
+            $hotel->setPrice($data_hotel['price']);
+            $hotel->setDescription($data_hotel['description']);
+            for ($i=0; $i < count($data_picture); $i++) { 
+                $file = $data_picture[$i];
+                $picture = new Picture();
+                $filename = md5(uniqid()) . '.' . $file->guessExtension();
+                $uploads_directory = $this->getParameter('uploads_directory');
+                $file->move(
+                    $uploads_directory,
+                    $filename
+                );
+                $picture->setUrl($uploads_directory.'/'.$filename);
+                $picture->setName($filename);
+                $entityManager->persist($picture);
+                $hotel->addPicture($picture);
+            }
             $entityManager->persist($hotel);
             $entityManager->flush();
 
