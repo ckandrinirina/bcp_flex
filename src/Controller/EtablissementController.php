@@ -22,11 +22,9 @@ use Symfony\Bundle\MakerBundle\EventRegistry;
 class EtablissementController extends Controller
 {
     private $oManager;
-    private $em;
     
     public function __construct(ServiceManager $serviceManager) {
         $this->oManager = $serviceManager;
-        $this->em = $this->getDoctrine()->getManager();
     }
     
     /**
@@ -187,6 +185,7 @@ class EtablissementController extends Controller
      */
     public function searchResult($type,$id,HotelRepository $hotelRepository,RestaurantRepository $restaurantRepository,EventRepository $eventRepository,RecetteRepository $recetteRepository)
     {
+	$em = $this->getDoctrine()->getManager();
         if($type == 'hotel'){
             $data = $hotelRepository->find($id);
         }
@@ -200,8 +199,8 @@ class EtablissementController extends Controller
             $data = $recetteRepository->find($id);
         }
         $data->setViewers($data->getViewers()+1);
-        $this->em->persist($data);
-        $this->em->flush();
+        $em->persist($data);
+        $em->flush();
         return $this->render('Etablissement/viewContent.html.twig',[
             'data'=>$data,
             'type'=>$type
