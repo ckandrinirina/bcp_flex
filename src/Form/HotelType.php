@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Hotel;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -21,13 +22,10 @@ class HotelType extends AbstractType
             ->add('speciality')
             ->add('price')
             ->add('description')
+            ->add('pictures',FileType::class,[
+                'multiple' => true,
+                'required' => false
+            ])
         ;
-    }
-
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults([
-            'data_class' => Hotel::class,
-        ]);
     }
 }
