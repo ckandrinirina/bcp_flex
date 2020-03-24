@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Restaurant;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RestaurantType extends AbstractType
@@ -21,13 +22,10 @@ class RestaurantType extends AbstractType
             ->add('speciality')
             ->add('price')
             ->add('description')
+            ->add('pictures',FileType::class,[
+                'multiple' => true,
+                'required' => false
+            ])
         ;
-    }
-
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults([
-            'data_class' => Restaurant::class,
-        ]);
     }
 }

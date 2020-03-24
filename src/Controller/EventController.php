@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Picture;
 
 /**
  * @Route("/admin/event")
@@ -23,7 +24,7 @@ class EventController extends Controller
     public function index(EventRepository $eventRepository): Response
     {
         return $this->render('event/index.html.twig', [
-            'menu'=>$this->menu
+            'menu' => $this->menu
         ]);
     }
 
@@ -34,10 +35,30 @@ class EventController extends Controller
     {
         $event = new Event();
         $form = $this->createForm(EventType::class, $event);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if (array_key_exists('event', $request->request->all())) {
             $entityManager = $this->getDoctrine()->getManager();
+            $data_event = $request->request->all()['event'];
+            $data_picture = $request->files->all()['event']['pictures'];
+
+            $event->setNom($data_event['nom']);
+            $event->setPresentation($data_event['presentation']);
+            $event->setDate(\DateTime::createFromFormat('Y-m-d', $data_event['date']));
+            $event->setPlace($data_event['place']);
+            for ($i = 0; $i < count($data_picture); $i++) {
+                $file = $data_picture[$i];
+                $picture = new Picture();
+                $filename = md5(uniqid()) . '.' . $file->guessExtension();
+                $uploads_directory = $this->getParameter('uploads_directory_event');
+                $file->move(
+                    $uploads_directory,
+                    $filename
+                );
+                $picture->setUrl($uploads_directory . '/' . $filename);
+                $picture->setName($filename);
+                $entityManager->persist($picture);
+                $event->addPicture($picture);
+            }
             $entityManager->persist($event);
             $entityManager->flush();
 
@@ -47,7 +68,7 @@ class EventController extends Controller
         return $this->render('event/new.html.twig', [
             'event' => $event,
             'form' => $form->createView(),
-            'menu'=>$this->menu
+            'menu' => $this->menu
         ]);
     }
 
@@ -58,7 +79,7 @@ class EventController extends Controller
     {
         return $this->render('event/show.html.twig', [
             'event' => $event,
-            'menu'=>$this->menu
+            'menu' => $this->menu
         ]);
     }
 
@@ -79,7 +100,7 @@ class EventController extends Controller
         return $this->render('event/edit.html.twig', [
             'event' => $event,
             'form' => $form->createView(),
-            'menu'=>$this->menu
+            'menu' => $this->menu
         ]);
     }
 
@@ -92,7 +113,7 @@ class EventController extends Controller
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($event);
             $entityManager->flush();
-    
+
             return new JsonResponse();
         } else {
             throw $this->createNotFoundException('Page not found');

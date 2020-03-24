@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
-
+use App\Entity\Picture;
 /**
  * @Route("admin/restaurant")
  */
@@ -23,7 +23,7 @@ class RestaurantController extends Controller
     public function index(RestaurantRepository $restaurantRepository): Response
     {
         return $this->render('restaurant/index.html.twig', [
-            'menu'=>$this->menu
+            'menu' => $this->menu
         ]);
     }
 
@@ -34,10 +34,35 @@ class RestaurantController extends Controller
     {
         $restaurant = new Restaurant();
         $form = $this->createForm(RestaurantType::class, $restaurant);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if (array_key_exists('restaurant', $request->request->all())) {
             $entityManager = $this->getDoctrine()->getManager();
+            $data_restaurant = $request->request->all()['restaurant'];
+            $data_picture = $request->files->all()['restaurant']['pictures'];
+
+            $restaurant->setNom($data_restaurant['nom']);
+            $restaurant->setAdress($data_restaurant['adress']);
+            $restaurant->setTelFixe($data_restaurant['tel_fixe']);
+            $restaurant->setTelAutre($data_restaurant['tel_autre']);
+            $restaurant->setEmail($data_restaurant['email']);
+            $restaurant->setSite($data_restaurant['site']);
+            $restaurant->setSpeciality($data_restaurant['speciality']);
+            $restaurant->setPrice($data_restaurant['price']);
+            $restaurant->setDescription($data_restaurant['description']);
+            for ($i = 0; $i < count($data_picture); $i++) {
+                $file = $data_picture[$i];
+                $picture = new Picture();
+                $filename = md5(uniqid()) . '.' . $file->guessExtension();
+                $uploads_directory = $this->getParameter('uploads_directory_restaurant');
+                $file->move(
+                    $uploads_directory,
+                    $filename
+                );
+                $picture->setUrl($uploads_directory . '/' . $filename);
+                $picture->setName($filename);
+                $entityManager->persist($picture);
+                $restaurant->addPicture($picture);
+            }
             $entityManager->persist($restaurant);
             $entityManager->flush();
 
@@ -47,7 +72,7 @@ class RestaurantController extends Controller
         return $this->render('restaurant/new.html.twig', [
             'restaurant' => $restaurant,
             'form' => $form->createView(),
-            'menu'=>$this->menu
+            'menu' => $this->menu
         ]);
     }
 
@@ -58,7 +83,7 @@ class RestaurantController extends Controller
     {
         return $this->render('restaurant/show.html.twig', [
             'restaurant' => $restaurant,
-            'menu'=>$this->menu
+            'menu' => $this->menu
         ]);
     }
 
@@ -79,7 +104,7 @@ class RestaurantController extends Controller
         return $this->render('restaurant/edit.html.twig', [
             'restaurant' => $restaurant,
             'form' => $form->createView(),
-            'menu'=>$this->menu
+            'menu' => $this->menu
         ]);
     }
 

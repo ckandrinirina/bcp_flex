@@ -55,7 +55,7 @@ class HotelController extends Controller
                 $file = $data_picture[$i];
                 $picture = new Picture();
                 $filename = md5(uniqid()) . '.' . $file->guessExtension();
-                $uploads_directory = $this->getParameter('uploads_directory');
+                $uploads_directory = $this->getParameter('uploads_directory_hotel');
                 $file->move(
                     $uploads_directory,
                     $filename
@@ -90,7 +90,7 @@ class HotelController extends Controller
     }
 
     /**
-     * @Route("/{id}/edit", name="hotel_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="hotel_edit", methods={"GET","POST"}, options={"expose"=true})
      */
     public function edit(Request $request, Hotel $hotel): Response
     {
