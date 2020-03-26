@@ -3365,7 +3365,7 @@ input, select, textarea {
 .main-menu {
   padding-bottom: 20px;
   padding-top: 20px;
-  background: rgba(255, 255, 255, 0.15);
+  /* background: rgba(255, 255, 255, 0.15); */
   padding-left: 15px;
   padding-right: 15px;
 }

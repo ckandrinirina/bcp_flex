@@ -100,7 +100,7 @@ class EtablissementController extends Controller
         $form = $this->createDeleteForm($oEtablissement);
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
-            $oManager->crudObject($oEtablissement, 'remove');
+            $this->oManager->crudObject($oEtablissement, 'remove');
         }
         return $this->redirectToRoute('etablissement_index');
     }
@@ -145,6 +145,7 @@ class EtablissementController extends Controller
             $data = $recetteRepository->findSoundex($critere,$page);
         if($type == 'event')
             $data = $eventRepository->findSoundex($critere,$page);
+        // dump($data);die();
         return $this->render('Etablissement/suggestion.html.twig',[
             'page' => $page,
             'data' => $data,
