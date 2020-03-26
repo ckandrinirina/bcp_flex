@@ -51,6 +51,16 @@ class RecetteRepository extends ServiceEntityRepository
         ->getQuery()
         ->getResult();
     }
+
+    public function findDetail($offset)
+    {
+        return $this->createQueryBuilder('e')
+        ->orderBy('e.viewers','DESC')
+        ->setFirstResult( $offset )
+        ->setMaxResults(5)
+        ->getQuery()
+        ->getResult();
+    }
     // /**
     //  * @return Recette[] Returns an array of Recette objects
     //  */

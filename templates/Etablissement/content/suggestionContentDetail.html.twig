@@ -1,28 +1,28 @@
 <hgroup class="mb20">
 	<h1>Resultats de la recherche</h1>
 </hgroup>
-<ul class="nav nav-tabs">
+{# <ul class="nav nav-tabs">
 	<li role="presentation" {% if type == 'restaurant' %} class="active" {% endif %}>
-		<a href="{{path('search_block',{ 'type':'restaurant', 'critere': critere, 'proximite': proximite })}}">Restaurant</a>
+		<a href="{{path('search_detail',{ 'type':'restaurant' })}}">Restaurant</a>
 	</li>
 	<li role="presentation" {% if type == 'hotel' %} class="active" {% endif %}>
-		<a href="{{path('search_block',{ 'type':'hotel', 'critere': critere, 'proximite': proximite })}}">Hotel</a>
+		<a href="{{path('search_detail',{ 'type':'hotel' })}}">Hotel</a>
 	</li>
 	<li role="presentation" {% if type == 'recette' %} class="active" {% endif %}>
-		<a href="{{path('search_block',{ 'type':'recette', 'critere': critere, 'proximite': proximite })}}">Recette</a>
+		<a href="{{path('search_detail',{ 'type':'recette' })}}">Recette</a>
 	</li>
 	<li role="presentation" {% if type == 'event' %} class="active" {% endif %}>
-		<a href="{{path('search_block',{ 'type':'event', 'critere': critere, 'proximite': proximite })}}">Evenement</a>
+		<a href="{{path('search_detail',{ 'type':'event' })}}">Evenement</a>
 	</li>
 </ul>
-<br/>
+<br/> #}
 <section class="col-xs-12 col-sm-12 col-md-12">
 	{% if data|length > 0 %}
 		{% if type == 'restaurant' or type == 'hotel' %}
 			{% for h in data %}
 				<article class="search-result row">
 					<div class="col-xs-12 col-sm-12 col-md-3">
-						<a href="#" title="Lorem ipsum" class="thumbnail"><img src="{{asset(h.pictures[0].url)}}" alt="Lorem ipsum"/></a>
+						<a href="#" title="Lorem ipsum" class="thumbnail"><img src='https://image.shutterstock.com/image-photo/image-girl-tablet-her-hands-600w-552755020.jpg' alt="Lorem ipsum"/></a>
 					</div>
 					<div class="col-xs-12 col-sm-12 col-md-9 excerpet">
 						<h3>
@@ -38,7 +38,7 @@
 			{% for h in data %}
 				<article class="search-result row">
 					<div class="col-xs-12 col-sm-12 col-md-3">
-						<a href="#" title="Lorem ipsum" class="thumbnail"><img src='{{asset(h.pictures[0].url)}}' alt="Lorem ipsum"/></a>
+						<a href="#" title="Lorem ipsum" class="thumbnail"><img src='https://image.shutterstock.com/image-photo/image-girl-tablet-her-hands-600w-552755020.jpg' alt="Lorem ipsum"/></a>
 					</div>
 					<div class="col-xs-12 col-sm-12 col-md-9 excerpet">
 						<h3>
@@ -54,7 +54,7 @@
 			{% for h in data %}
 				<article class="search-result row">
 					<div class="col-xs-12 col-sm-12 col-md-3">
-						<a href="#" title="Lorem ipsum" class="thumbnail"><img src='{{asset(h.pictures[0].url)}}' alt="Lorem ipsum"/></a>
+						<a href="#" title="Lorem ipsum" class="thumbnail"><img src='https://image.shutterstock.com/image-photo/image-girl-tablet-her-hands-600w-552755020.jpg' alt="Lorem ipsum"/></a>
 					</div>
 					<div class="col-xs-12 col-sm-12 col-md-9 excerpet">
 						<h3>
@@ -69,10 +69,10 @@
 	{% endif %}
 </section>
 <div class="text-center row" style="margin-bottom:10px">
-	<a class="btn btn-default previous" href="{{path('search_block',{'page': page-5 ,'type':type, 'critere': critere, 'proximite': proximite })}}" style="margin-right:10px" {% if page-5 < 0 %}disabled{% endif %}>
+	<a class="btn btn-default previous" href="{{path('search_detail',{'page': page-5 ,'type':type })}}" style="margin-right:10px" {% if page-5 < 0 %}disabled{% endif %}>
 		<i class="fa fa-reply"></i>
 	</a>
-	<a class="btn btn-default next" href="{{path('search_block',{'page': page+5 ,'type':type, 'critere': critere, 'proximite': proximite })}}" style="margin-left:10px" {% if page-5 > data|length %}disabled{% endif %}>
+	<a class="btn btn-default next" href="{{path('search_detail',{'page': page+5 ,'type':type })}}" style="margin-left:10px" {% if page-5 > data|length %}disabled{% endif %}>
 		<i class="fa fa-share"></i>
 	</a>
 </div>
