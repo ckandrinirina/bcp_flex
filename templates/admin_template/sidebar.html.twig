@@ -6,18 +6,6 @@
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">MENU</li>
             <!-- Optionally, you can add icons to the links -->
-            <li {% if menu == 'event' %}class="active"{% endif %}>
-                <a href="{{path('event_index')}}">
-                    <i class="fa fa-link"></i>
-                    <span>Evenement</span>
-                </a>
-            </li>
-            <li {% if menu == 'recette' %}class="active"{% endif %}>
-                <a href="{{path('recette_index')}}">
-                    <i class="fa fa-link"></i>
-                    <span>Recette</span>
-                </a>
-            </li>
             <li {% if menu == 'restaurant' %}class="active"{% endif %}>
                 <a href="{{path('restaurant_index')}}">
                     <i class="fa fa-link"></i>
@@ -28,6 +16,18 @@
                 <a href="{{path('hotel_index')}}">
                     <i class="fa fa-link"></i>
                     <span>Hotel</span>
+                </a>
+            </li>
+            <li {% if menu == 'event' %}class="active"{% endif %}>
+                <a href="{{path('event_index')}}">
+                    <i class="fa fa-link"></i>
+                    <span>Evenement</span>
+                </a>
+            </li>
+            <li {% if menu == 'recette' %}class="active"{% endif %}>
+                <a href="{{path('recette_index')}}">
+                    <i class="fa fa-link"></i>
+                    <span>Recette</span>
                 </a>
             </li>
             {# <li class="treeview">
