@@ -49,7 +49,8 @@ class HotelController extends Controller
             $hotel->setEmail($data_hotel['email']);
             $hotel->setSite($data_hotel['site']);
             $hotel->setSpeciality($data_hotel['speciality']);
-            $hotel->setPrice($data_hotel['price']);
+            if ($data_hotel['price'] != "")
+                $hotel->setPrice($data_hotel['price']);
             $hotel->setDescription($data_hotel['description']);
             for ($i=0; $i < count($data_picture); $i++) { 
                 $file = $data_picture[$i];
