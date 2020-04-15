@@ -4322,6 +4322,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 .instafeed {
   margin: -5px;
+  display: flex !important;
 }
 
 .instafeed li {
