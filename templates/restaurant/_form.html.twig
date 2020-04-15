@@ -8,6 +8,14 @@
 	{{ form_widget(form.adress, {'attr': {'class': 'form-control'}}) }}
 </div>
 <div class="form-group is-empty">
+	<label>{{ form_label(form.latitude, 'Latitude') }}</label>
+	{{ form_widget(form.latitude, {'attr': {'class': 'form-control'}}) }}
+</div>
+<div class="form-group is-empty">
+	<label>{{ form_label(form.longitude, 'Longitude') }}</label>
+	{{ form_widget(form.longitude, {'attr': {'class': 'form-control'}}) }}
+</div>
+<div class="form-group is-empty">
 	<label>{{ form_label(form.tel_fixe, 'Tel fixe') }}</label>
 	{{ form_widget(form.tel_fixe, {'attr': {'class': 'form-control'}}) }}
 </div>

@@ -44,6 +44,8 @@ class HotelController extends Controller
 
             $hotel->setNom($data_hotel['nom']);
             $hotel->setAdress($data_hotel['adress']);
+            $hotel->setLatitude($data_hotel['latitude']);
+            $hotel->setLongitude($data_hotel['longitude']);
             $hotel->setTelFixe($data_hotel['tel_fixe']);
             $hotel->setTelAutre($data_hotel['tel_autre']);
             $hotel->setEmail($data_hotel['email']);

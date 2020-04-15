@@ -42,6 +42,8 @@ class RestaurantController extends Controller
 
             $restaurant->setNom($data_restaurant['nom']);
             $restaurant->setAdress($data_restaurant['adress']);
+            $restaurant->setLatitude($data_restaurant['latitude']);
+            $restaurant->setLongitude($data_restaurant['longitude']);
             $restaurant->setTelFixe($data_restaurant['tel_fixe']);
             $restaurant->setTelAutre($data_restaurant['tel_autre']);
             $restaurant->setEmail($data_restaurant['email']);

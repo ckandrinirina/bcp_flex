@@ -1,0 +1,27 @@
+#mapid {
+    height: 300px;
+    width: 700px;
+    float: right;
+    margin: 10px;
+    margin-top: 240px;
+    border-radius: 3px;
+    border: #ddd 1px solid;
+}
+.innerMap {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+.pictures {
+    height: 300px;
+    width: 700px;
+    margin-left: 10px;
+    border-radius: 3px;
+    border: #ddd 1px solid;
+    transition: opacity .5s cubic-bezier(0, 0.4, 1, 1);
+    position: absolute;
+}
+.etablissement {
+    display: flex;
+}
+img + img { opacity: 0; }

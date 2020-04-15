@@ -1,68 +1,25 @@
 /*Textbox Events*/
-$(document).on('focusin', 'navbar input.search-textbox', function(){
-    if($(this).val() <= 0){
-        var parent = $(this).closest('div.search');
-        parent.addClass('focused');
-    }
-});
-$(document).on('focusout', 'navbar input.search-textbox', function(){
-    if($(this).val() <= 0){
-        var parent = $(this).closest('div.search');
-        parent.removeClass('focused');
-    }
-});
-$(document).on('click', 'navbar .search', function(){
-    $(this).children('input.search-textbox').focus();
-});
+let style = `
+    position: absolute;
+    width: 100%;
+    top: 0;
+    height: 100vh;
+    transition: opacity .5s cubic-bezier(0, 0.4, 1, 1);
+`;
+let backgroundImgHtml = `
+    <img style="${style}" class="banner-picture" src="/assets/home/images/banner.jpg"/>
+    <img style="${style}" class="banner-picture" src="/assets/home/images/banner.png"/>
+    <img style="${style}" class="banner-picture" src="/assets/home/images/Soco_HD-035-big.jpg"/>
+`;
+$('#banner').append(backgroundImgHtml);
+var current = 0,
+    slides = $('#banner .banner-picture');
 
-/*Text Key Events for Animating Icons i.e. .ico-btn*/
-$(document).on('keyup', 'navbar input.search-textbox', function(){
-    var parent = $(this).closest('div.search');
-    var phrase = $(this).val(),
-        phrase_length = phrase.length;
-
-    if(phrase_length >= 2){
-        parent.addClass('multi-char');
-        if(!parent.hasClass('not-null')){
-            parent.addClass('not-null');
-        }
-
-    }
-    else if(phrase_length == 1){
-        parent.addClass('not-null');
-        parent.removeClass('multi-char');
-    }
-    else if(phrase_length <= 0){
-        parent.removeClass('not-null');
-        parent.removeClass('multi-char');
-    }
-});
-
-/*Tab Highlighter Functionality*/
-$(document).on('click', 'navbar .tabs ul.navbar-body li a', function(){
-    var $this = $(this);
-    TabHighlighter.set($this);
-    $this.closest('li').siblings('.active').removeClass('active');
-    $this.closest('li').addClass('active');
-});
-var TabHighlighter = {
-    set: function($this){
-        $('.tab-highlighter').css({
-            'left':  $this.closest('li').offset().left,
-            'width': $this.closest('li').outerWidth()
-        });
-    },
-    refresh: function(){
-        var $this = $('.tabs ul.navbar-body li.active a');
-        $('.tab-highlighter').css({
-            'left':  $this.closest('li').offset().left,
-            'width': $this.closest('li').outerWidth()
-        });
-    }
-};
-$(window).resize(function(){
-    TabHighlighter.refresh();
-});
-$(document).ready(function(){
-	TabHighlighter.refresh();
-});
+setInterval(function () {
+    slides.each((i, el) => {
+        $(el).css('opacity', '0');
+    })
+    current = (current != slides.length - 1) ? current + 1 : 0;
+    slides.css('opacity', '0');
+    $(slides[current]).css('opacity', '1');
+}, 5000);

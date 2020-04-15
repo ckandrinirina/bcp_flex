@@ -1,2 +1,15 @@
-<h1 class="text-center">{{data.nom}}</h1>
-<div id="map"></div>
+<div class="row">
+    <div class="col-sm-8">
+        <div class="etablissement">
+            {% for picture in data.pictures %}
+                <img src='{{asset(picture.url)}}' alt="{{data.nom}}" class="pictures"/>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <h1 class="etablissement-title">{{data.nom}}</h1>
+    </div>
+</div>
+<div class="innerMap">
+    <div latitude="{{data.latitude}}" longitude="{{data.longitude}}" hotel="{{data.nom}}" id="mapid"></div>
+</div>

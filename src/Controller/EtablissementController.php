@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Etablissement;
+use App\Entity\Picture;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use App\Repository\HotelRepository;
 use App\Manager\ServiceManager;
@@ -179,7 +180,6 @@ class EtablissementController extends Controller
                 ]);
             }
         }
-
         if ($type == 'event')
             $data = $eventRepository->findSoundex($critere, $page);
         return $this->render('Etablissement/suggestion.html.twig', [
