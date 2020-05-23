@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Hotel;
 use App\Entity\Picture;
 use App\Form\HotelType;
+use App\Manager\Hotel\HotelManager;
 use App\Repository\HotelRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -31,46 +32,14 @@ class HotelController extends Controller
     /**
      * @Route("/new", name="hotel_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request,HotelManager $hotelManager): Response
     {
         $hotel = new Hotel();
         $form = $this->createForm(HotelType::class, $hotel);
         // $form->handleRequest($request);
         
         if (array_key_exists('hotel',$request->request->all())) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $data_hotel = $request->request->all()['hotel'];
-            $data_picture = $request->files->all()['hotel']['pictures'];
-
-            $hotel->setNom($data_hotel['nom']);
-            $hotel->setAdress($data_hotel['adress']);
-            $hotel->setLatitude($data_hotel['latitude']);
-            $hotel->setLongitude($data_hotel['longitude']);
-            $hotel->setTelFixe($data_hotel['tel_fixe']);
-            $hotel->setTelAutre($data_hotel['tel_autre']);
-            $hotel->setEmail($data_hotel['email']);
-            $hotel->setSite($data_hotel['site']);
-            $hotel->setSpeciality($data_hotel['speciality']);
-            if ($data_hotel['price'] != "")
-                $hotel->setPrice($data_hotel['price']);
-            $hotel->setDescription($data_hotel['description']);
-            for ($i=0; $i < count($data_picture); $i++) { 
-                $file = $data_picture[$i];
-                $picture = new Picture();
-                $filename = md5(uniqid()) . '.' . $file->guessExtension();
-                $uploads_directory = $this->getParameter('uploads_directory_hotel');
-                $file->move(
-                    $uploads_directory,
-                    $filename
-                );
-                $picture->setUrl($uploads_directory.'/'.$filename);
-                $picture->setName($filename);
-                $entityManager->persist($picture);
-                $hotel->addPicture($picture);
-            }
-            $entityManager->persist($hotel);
-            $entityManager->flush();
-
+            $hotelManager->saveHotelFromAjax($request,$hotel);
             return $this->redirectToRoute('hotel_index');
         }
 
@@ -95,14 +64,12 @@ class HotelController extends Controller
     /**
      * @Route("/{id}/edit", name="hotel_edit", methods={"GET","POST"}, options={"expose"=true})
      */
-    public function edit(Request $request, Hotel $hotel): Response
+    public function edit(Request $request, Hotel $hotel, HotelManager $hotelManager): Response
     {
         $form = $this->createForm(HotelType::class, $hotel);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
+        if (array_key_exists('hotel', $request->request->all())) {
+            $hotelManager->saveHotelFromAjax($request, $hotel);
             return $this->redirectToRoute('hotel_index');
         }
 

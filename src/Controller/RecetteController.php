@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Entity\Picture;
+use App\Manager\Recette\RecetteManager;
 
 /**
  * @Route("/admin/recette")
@@ -31,35 +32,13 @@ class RecetteController extends Controller
     /**
      * @Route("/new", name="recette_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request,RecetteManager $recetteManager): Response
     {
         $recette = new Recette();
         $form = $this->createForm(RecetteType::class, $recette);
 
         if (array_key_exists('recette',$request->request->all())) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $data_recette = $request->request->all()['recette'];
-            $data_picture = $request->files->all()['recette']['pictures'];
-
-            $recette->setNom($data_recette['nom']);
-            $recette->setEtapes($data_recette['etapes']);
-            for ($i=0; $i < count($data_picture); $i++) { 
-                $file = $data_picture[$i];
-                $picture = new Picture();
-                $filename = md5(uniqid()) . '.' . $file->guessExtension();
-                $uploads_directory = $this->getParameter('uploads_directory_recette');
-                $file->move(
-                    $uploads_directory,
-                    $filename
-                );
-                $picture->setUrl($uploads_directory.'/'.$filename);
-                $picture->setName($filename);
-                $entityManager->persist($picture);
-                $recette->addPicture($picture);
-            }
-            $entityManager->persist($recette);
-            $entityManager->flush();
-
+            $recetteManager->saveRecetteFromAjax($request, $recette);
             return $this->redirectToRoute('recette_index');
         }
 
@@ -84,14 +63,12 @@ class RecetteController extends Controller
     /**
      * @Route("/{id}/edit", name="recette_edit", methods={"GET","POST"} ,options= { "expose" = true })
      */
-    public function edit(Request $request, Recette $recette): Response
+    public function edit(Request $request, Recette $recette, RecetteManager $recetteManager): Response
     {
         $form = $this->createForm(RecetteType::class, $recette);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
+        if (array_key_exists('recette', $request->request->all())) {
+            $recetteManager->saveRecetteFromAjax($request, $recette);
             return $this->redirectToRoute('recette_index');
         }
 

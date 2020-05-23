@@ -13,6 +13,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 class Hotel
 {
+    const uploads_directory_hotel = 'uploads/hotel_pictures';
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

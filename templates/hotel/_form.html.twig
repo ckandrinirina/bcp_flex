@@ -47,6 +47,13 @@
 	<label>{{ form_label(form.pictures, 'Ajouter des photos') }}</label>
 	{{ form_widget(form.pictures, {'attr': {'class': 'form-control'}}) }}
 </div>
+<div class="row">
+	{% for picture in hotel.pictures %}
+		<div class="col-md-3">
+			<img src="{{asset(picture.url)}}"/>
+		</div>
+	{% endfor %}
+</div>
 <button class="btn btn-default">{{ button_label|default('Save') }}</button>
 <a href="{{ path('restaurant_index') }}" class="btn btn-danger pull-right">Retourner à la liste</a>
 {{ form_end(form) }}

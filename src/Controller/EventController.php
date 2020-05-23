@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Picture;
+use App\Manager\Event\EventManager;
 
 /**
  * @Route("/admin/event")
@@ -31,37 +32,13 @@ class EventController extends Controller
     /**
      * @Route("/new", name="event_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, EventManager $eventManager): Response
     {
         $event = new Event();
         $form = $this->createForm(EventType::class, $event);
 
         if (array_key_exists('event', $request->request->all())) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $data_event = $request->request->all()['event'];
-            $data_picture = $request->files->all()['event']['pictures'];
-
-            $event->setNom($data_event['nom']);
-            $event->setPresentation($data_event['presentation']);
-            $event->setDate(\DateTime::createFromFormat('Y-m-d', $data_event['date']));
-            $event->setPlace($data_event['place']);
-            for ($i = 0; $i < count($data_picture); $i++) {
-                $file = $data_picture[$i];
-                $picture = new Picture();
-                $filename = md5(uniqid()) . '.' . $file->guessExtension();
-                $uploads_directory = $this->getParameter('uploads_directory_event');
-                $file->move(
-                    $uploads_directory,
-                    $filename
-                );
-                $picture->setUrl($uploads_directory . '/' . $filename);
-                $picture->setName($filename);
-                $entityManager->persist($picture);
-                $event->addPicture($picture);
-            }
-            $entityManager->persist($event);
-            $entityManager->flush();
-
+            $eventManager->saveEventFromAjax($request, $event);
             return $this->redirectToRoute('event_index');
         }
 
@@ -86,14 +63,12 @@ class EventController extends Controller
     /**
      * @Route("/{id}/edit", name="event_edit", methods={"GET","POST"}, options = { "expose" = true })
      */
-    public function edit(Request $request, Event $event): Response
+    public function edit(Request $request, Event $event, EventManager $eventManager): Response
     {
         $form = $this->createForm(EventType::class, $event);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
+        if (array_key_exists('event', $request->request->all())) {
+            $eventManager->saveEventFromAjax($request, $event);
             return $this->redirectToRoute('event_index');
         }
 

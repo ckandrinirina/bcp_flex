@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Event
 {
+    const uploads_directory_event = 'uploads/hotel_event';
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
