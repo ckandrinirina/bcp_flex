@@ -11,6 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Restaurant
 {
+    const uploads_directory_restaurant = 'uploads/hotel_pictures';
+    
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

@@ -10,7 +10,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use App\Entity\Picture;
+use App\Manager\Restaurant\RestaurantManager;
+
 /**
  * @Route("admin/restaurant")
  */
@@ -30,44 +31,13 @@ class RestaurantController extends Controller
     /**
      * @Route("/new", name="restaurant_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request,RestaurantManager $restaurantManager): Response
     {
         $restaurant = new Restaurant();
         $form = $this->createForm(RestaurantType::class, $restaurant);
 
         if (array_key_exists('restaurant', $request->request->all())) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $data_restaurant = $request->request->all()['restaurant'];
-            $data_picture = $request->files->all()['restaurant']['pictures'];
-
-            $restaurant->setNom($data_restaurant['nom']);
-            $restaurant->setAdress($data_restaurant['adress']);
-            $restaurant->setLatitude($data_restaurant['latitude']);
-            $restaurant->setLongitude($data_restaurant['longitude']);
-            $restaurant->setTelFixe($data_restaurant['tel_fixe']);
-            $restaurant->setTelAutre($data_restaurant['tel_autre']);
-            $restaurant->setEmail($data_restaurant['email']);
-            $restaurant->setSite($data_restaurant['site']);
-            $restaurant->setSpeciality($data_restaurant['speciality']);
-            $restaurant->setPrice($data_restaurant['price']);
-            $restaurant->setDescription($data_restaurant['description']);
-            for ($i = 0; $i < count($data_picture); $i++) {
-                $file = $data_picture[$i];
-                $picture = new Picture();
-                $filename = md5(uniqid()) . '.' . $file->guessExtension();
-                $uploads_directory = $this->getParameter('uploads_directory_restaurant');
-                $file->move(
-                    $uploads_directory,
-                    $filename
-                );
-                $picture->setUrl($uploads_directory . '/' . $filename);
-                $picture->setName($filename);
-                $entityManager->persist($picture);
-                $restaurant->addPicture($picture);
-            }
-            $entityManager->persist($restaurant);
-            $entityManager->flush();
-
+            $restaurantManager->saveRestaurantFromAjax($request,$restaurant);
             return $this->redirectToRoute('restaurant_index');
         }
 
@@ -92,14 +62,12 @@ class RestaurantController extends Controller
     /**
      * @Route("/{id}/edit", name="restaurant_edit", methods={"GET","POST"},options={"expose"=true})
      */
-    public function edit(Request $request, Restaurant $restaurant): Response
+    public function edit(Request $request, Restaurant $restaurant,RestaurantManager $restaurantManager): Response
     {
         $form = $this->createForm(RestaurantType::class, $restaurant);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
+        
+        if (array_key_exists('restaurant', $request->request->all())) {
+            $restaurantManager->saveRestaurantFromAjax($request,$restaurant);
             return $this->redirectToRoute('restaurant_index');
         }
 

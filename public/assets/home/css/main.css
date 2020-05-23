@@ -2905,7 +2905,7 @@ button:disabled,
 }
 
 .search-bar-margin {
-    margin-top: -667px !important;
+    margin-top: -50% !important;
     position: relative !important;
 }
 
