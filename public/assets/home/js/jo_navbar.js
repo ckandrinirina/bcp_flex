@@ -7,9 +7,9 @@ let style = `
     transition: opacity .5s cubic-bezier(0, 0.4, 1, 1);
 `;
 let backgroundImgHtml = `
-    <img style="${style}" class="banner-picture" src="/assets/home/images/banner.jpg"/>
-    <img style="${style}" class="banner-picture" src="/assets/home/images/banner.png"/>
-    <img style="${style}" class="banner-picture" src="/assets/home/images/Soco_HD-035-big.jpg"/>
+    <img style="${style}" class="banner-picture" src="${asset_url}assets/home/images/banner.jpg"/>
+    <img style="${style}" class="banner-picture" src="${asset_url}assets/home/images/banner.png"/>
+    <img style="${style}" class="banner-picture" src="${asset_url}assets/home/images/Soco_HD-035-big.jpg"/>
 `;
 $('#banner').append(backgroundImgHtml);
 var current = 0,
