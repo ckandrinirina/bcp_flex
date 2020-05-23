@@ -2904,6 +2904,11 @@ button:disabled,
     margin: 0 auto;
 }
 
+.search-bar-margin {
+    margin-top: -667px !important;
+    position: relative !important;
+}
+
 @media screen and (max-width: 1280px) {
 
     .wrapper>.inner {
