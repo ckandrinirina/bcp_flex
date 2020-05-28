@@ -223,6 +223,7 @@ class EtablissementController extends Controller
         $em = $this->getDoctrine()->getManager();
         if ($type == 'hotel') {
             $data = $hotelRepository->find($id);
+
         }
         if ($type == 'restaurant') {
             $data = $restaurantRepository->find($id);
@@ -234,6 +235,10 @@ class EtablissementController extends Controller
             $data = $recetteRepository->find($id);
         }
         $data->setViewers($data->getViewers() + 1);
+        foreach ($data->getPictures() as $key => $picture) {
+            $picture->setNbrViews($data->getViewers());
+            $em->persist($picture);
+        }
         $em->persist($data);
         $em->flush();
         return $this->render('Etablissement/viewContent.html.twig', [

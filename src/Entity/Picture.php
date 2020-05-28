@@ -50,6 +50,11 @@ class Picture
      */
     private $name;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $nbrViews;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -123,6 +128,18 @@ class Picture
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getNbrViews(): ?int
+    {
+        return $this->nbrViews;
+    }
+
+    public function setNbrViews(?int $nbrViews): self
+    {
+        $this->nbrViews = $nbrViews;
 
         return $this;
     }

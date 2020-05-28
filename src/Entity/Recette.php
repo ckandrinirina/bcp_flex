@@ -34,6 +34,11 @@ class Recette
      */
     private $pictures;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $viewers;
+
     public function __construct()
     {
         $this->pictures = new ArrayCollection();
@@ -95,6 +100,18 @@ class Recette
                 $picture->setRecette(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getViewers(): ?int
+    {
+        return $this->viewers;
+    }
+
+    public function setViewers(int $viewers): self
+    {
+        $this->viewers = $viewers;
 
         return $this;
     }

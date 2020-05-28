@@ -45,6 +45,11 @@ class Event
      */
     private $pictures;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $viewers;
+
     public function __construct()
     {
         $this->pictures = new ArrayCollection();
@@ -130,6 +135,18 @@ class Event
                 $picture->setEvent(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getViewers(): ?string
+    {
+        return $this->viewers;
+    }
+
+    public function setViewers(string $viewers): self
+    {
+        $this->viewers = $viewers;
 
         return $this;
     }

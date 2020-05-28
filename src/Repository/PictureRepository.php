@@ -19,6 +19,15 @@ class PictureRepository extends ServiceEntityRepository
         parent::__construct($registry, Picture::class);
     }
 
+    public function findBestPictures() 
+    {
+        return $this->createQueryBuilder('p')
+            ->orderBy('p.nbrViews', 'DESC')
+            ->setMaxResults(6)
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Picture[] Returns an array of Picture objects
     //  */
