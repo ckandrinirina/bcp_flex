@@ -25,3 +25,7 @@
 .input-field{
     height: 40px !important;
 }
+
+.min-font-size{
+    font-size: 10px;
+}

@@ -197,6 +197,10 @@ hgroup h2.lead {
     color: #248dc1 !important;
 }
 
+body {
+    background-color: #34b2a6 !important;
+}
+
 .search-result p {
     font: normal normal 1.125em "Roboto", Arial, Verdana, sans-serif;
 }

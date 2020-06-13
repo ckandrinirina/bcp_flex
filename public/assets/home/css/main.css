@@ -4225,6 +4225,6 @@ body.is-mobile.landing .wrapper.style4 {
     background-size: cover;
 }
 
-body.is-mobile.landing #footer {
-    /* background-color: #1d242a; */
+body {
+    background-color: #34b2a6 !important;
 }

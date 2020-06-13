@@ -17,62 +17,62 @@
 </ul>
 <br/> #}
 <section class="col-xs-12 col-sm-12 col-md-12">
-	{% if data|length > 0 %}
-		{% if type == 'restaurant' or type == 'hotel' %}
-			{% for h in data %}
-				<article class="search-result row">
-					<div class="col-xs-12 col-sm-12 col-md-3">
-						<a href="#" title="Lorem ipsum" class="thumbnail"><img src='https://image.shutterstock.com/image-photo/image-girl-tablet-her-hands-600w-552755020.jpg' alt="Lorem ipsum"/></a>
-					</div>
-					<div class="col-xs-12 col-sm-12 col-md-9 excerpet">
-						<h3>
-							<a href="{{path('search_view',{type:type,id:h.id})}}" title="">{{h.nom}}</a>
-						</h3>
-						<p>{{h.description[0:100]}}...</p>
-					</div>
-					<span class="clearfix borda"></span>
-				</article>
-			{% endfor %}
-		{% endif %}
-		{% if type == 'event' %}
-			{% for h in data %}
-				<article class="search-result row">
-					<div class="col-xs-12 col-sm-12 col-md-3">
-						<a href="#" title="Lorem ipsum" class="thumbnail"><img src='https://image.shutterstock.com/image-photo/image-girl-tablet-her-hands-600w-552755020.jpg' alt="Lorem ipsum"/></a>
-					</div>
-					<div class="col-xs-12 col-sm-12 col-md-9 excerpet">
-						<h3>
-							<a href="{{path('search_view',{'type':type,'id':h.id})}}" title="">{{h.nom}}</a>
-						</h3>
-						<p>{{h.presentation[0:100]}}...</p>
-					</div>
-					<span class="clearfix borda"></span>
-				</article>
-			{% endfor %}
-		{% endif %}
-		{% if type == 'recette' %}
-			{% for h in data %}
-				<article class="search-result row">
-					<div class="col-xs-12 col-sm-12 col-md-3">
-						<a href="#" title="Lorem ipsum" class="thumbnail"><img src='https://image.shutterstock.com/image-photo/image-girl-tablet-her-hands-600w-552755020.jpg' alt="Lorem ipsum"/></a>
-					</div>
-					<div class="col-xs-12 col-sm-12 col-md-9 excerpet">
-						<h3>
-							<a href="{{path('search_view',{'type':type,'id':h.id})}}" title="">{{h.nom}}</a>
-						</h3>
-						<p>{{h.etapes[0:100]}}...</p>
-					</div>
-					<span class="clearfix borda"></span>
-				</article>
-			{% endfor %}
-		{% endif %}
-	{% endif %}
+	{% for h in data[0] %}
+		<article class="search-result row">
+			<div class="col-xs-12 col-sm-12 col-md-3">
+				<a href="#" title="Lorem ipsum" class="thumbnail"><img src='https://image.shutterstock.com/image-photo/image-girl-tablet-her-hands-600w-552755020.jpg' alt="Lorem ipsum"/></a>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-9 excerpet">
+				<h3>
+					<a href="{{path('search_view',{type:type,id:h.id})}}" title="">{{h.nom}}</a>
+				</h3>
+				<p>{{h.description[0:100]}}...</p>
+			</div>
+			<span class="clearfix borda"></span>
+		</article>
+	{% endfor %}
+	{% for h in data[1] %}
+		<article class="search-result row">
+			<div class="col-xs-12 col-sm-12 col-md-3">
+				<a href="#" title="Lorem ipsum" class="thumbnail"><img src='https://image.shutterstock.com/image-photo/image-girl-tablet-her-hands-600w-552755020.jpg' alt="Lorem ipsum"/></a>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-9 excerpet">
+				<h3>
+					<a href="{{path('search_view',{type:type,id:h.id})}}" title="">{{h.nom}}</a>
+				</h3>
+				<p>{{h.description[0:100]}}...</p>
+			</div>
+			<span class="clearfix borda"></span>
+		</article>
+	{% endfor %}
+	{% for h in data[3] %}
+		<article class="search-result row">
+			<div class="col-xs-12 col-sm-12 col-md-3">
+				<a href="#" title="Lorem ipsum" class="thumbnail"><img src='https://image.shutterstock.com/image-photo/image-girl-tablet-her-hands-600w-552755020.jpg' alt="Lorem ipsum"/></a>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-9 excerpet">
+				<h3>
+					<a href="{{path('search_view',{'type':type,'id':h.id})}}" title="">{{h.nom}}</a>
+				</h3>
+				<p>{{h.presentation[0:100]}}...</p>
+			</div>
+			<span class="clearfix borda"></span>
+		</article>
+	{% endfor %}
+	{% for h in data[2] %}
+		<article class="search-result row">
+			<div class="col-xs-12 col-sm-12 col-md-3">
+				<a href="#" title="Lorem ipsum" class="thumbnail"><img src='https://image.shutterstock.com/image-photo/image-girl-tablet-her-hands-600w-552755020.jpg' alt="Lorem ipsum"/></a>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-9 excerpet">
+				<h3>
+					<a href="{{path('search_view',{'type':type,'id':h.id})}}" title="">{{h.nom}}</a>
+				</h3>
+				<p>{{h.etapes[0:100]}}...</p>
+			</div>
+			<span class="clearfix borda"></span>
+		</article>
+	{% endfor %}
 </section>
 <div class="text-center row" style="margin-bottom:10px">
-	<a class="btn btn-default previous" href="{{path('search_detail',{'page': page-5 ,'type':type })}}" style="margin-right:10px" {% if page-5 < 0 %}disabled{% endif %}>
-		<i class="fa fa-reply"></i>
-	</a>
-	<a class="btn btn-default next" href="{{path('search_detail',{'page': page+5 ,'type':type })}}" style="margin-left:10px" {% if page-5 > data|length %}disabled{% endif %}>
-		<i class="fa fa-share"></i>
-	</a>
-</div>
+	<a class="btn btn-default previous" href="{{path('search_detail',{'page': page-5 ,'type':type })}}" style="margin-right:10px"

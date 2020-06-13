@@ -147,41 +147,46 @@ class EtablissementController extends Controller
      */
     public function doSearch($page = 0, $type, $critere = '', $proximite = '', HotelRepository $hotelRepository, RestaurantRepository $restaurantRepository, RecetteRepository $recetteRepository, EventRepository $eventRepository)
     {
-        if ($type == 'hotel') {
-            $data = $hotelRepository->findSoundex($critere, $page);
-            if (count($data) == 0) {
-                return $this->redirectToRoute('search_block', [
-                    'page' => 0,
-                    'type' => 'recette',
-                    'critere' => $critere,
-                    'proximite' => $proximite
-                ]);
-            }
-        }
-        if ($type == 'restaurant') {
-            $data = $restaurantRepository->findSoundex($critere, $page);
-            if (count($data) == 0) {
-                return $this->redirectToRoute('search_block', [
-                    'page' => 0,
-                    'type' => 'hotel',
-                    'critere' => $critere,
-                    'proximite' => $proximite
-                ]);
-            }
-        }
-        if ($type == 'recette') {
-            $data = $recetteRepository->findSoundex($critere, $page);
-            if (count($data) == 0) {
-                return $this->redirectToRoute('search_block', [
-                    'page' => 0,
-                    'type' => 'event',
-                    'critere' => $critere,
-                    'proximite' => $proximite
-                ]);
-            }
-        }
-        if ($type == 'event')
-            $data = $eventRepository->findSoundex($critere, $page);
+        $data = [];
+        array_push($data, $hotelRepository->findSoundex($critere, $page));
+        array_push($data, $restaurantRepository->findSoundex($critere, $page));
+        array_push($data, $recetteRepository->findSoundex($critere, $page));
+        array_push($data, $eventRepository->findSoundex($critere, $page));
+        // dump($data);die();
+        // if ($type == 'hotel') {
+        //     if (count($data) == 0) {
+        //         return $this->redirectToRoute('search_block', [
+        //             'page' => 0,
+        //             'type' => 'recette',
+        //             'critere' => $critere,
+        //             'proximite' => $proximite
+        //         ]);
+        //     }
+        // }
+        // if ($type == 'restaurant') {
+        //     $data = $restaurantRepository->findSoundex($critere, $page);
+        //     if (count($data) == 0) {
+        //         return $this->redirectToRoute('search_block', [
+        //             'page' => 0,
+        //             'type' => 'hotel',
+        //             'critere' => $critere,
+        //             'proximite' => $proximite
+        //         ]);
+        //     }
+        // }
+        // if ($type == 'recette') {
+        //     $data = $recetteRepository->findSoundex($critere, $page);
+        //     if (count($data) == 0) {
+        //         return $this->redirectToRoute('search_block', [
+        //             'page' => 0,
+        //             'type' => 'event',
+        //             'critere' => $critere,
+        //             'proximite' => $proximite
+        //         ]);
+        //     }
+        // }
+        // if ($type == 'event') {
+        //     $data = $eventRepository->findSoundex($critere, $page);
         return $this->render('Etablissement/suggestion.html.twig', [
             'page' => $page,
             'data' => $data,
@@ -189,6 +194,7 @@ class EtablissementController extends Controller
             'critere' => $critere,
             'proximite' => $proximite
         ]);
+        // }
     }
 
     /**
@@ -223,7 +229,6 @@ class EtablissementController extends Controller
         $em = $this->getDoctrine()->getManager();
         if ($type == 'hotel') {
             $data = $hotelRepository->find($id);
-
         }
         if ($type == 'restaurant') {
             $data = $restaurantRepository->find($id);
